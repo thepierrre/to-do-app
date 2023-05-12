@@ -1,0 +1,11 @@
+.modal {
+    position: absolute;
+    z-index: 10;
+    width: 20rem;
+    height: 20rem;
+    background-color: white;
+}
+
+/* .backdrop {
+
+} */

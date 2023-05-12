@@ -1,0 +1,70 @@
+.task-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: space-around center;
+    width: 55rem;
+    background-color: white;
+    border-bottom: 3px solid rgb(239, 239, 239);
+    /* box-shadow: 1px 1px rgb(189, 189, 189); */
+}
+
+.task-bar:last-child {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom: none;
+}
+
+.task-bar:first-child {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.task-bar--item {
+    height: 3rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.tick {
+    width: 3rem;
+    justify-content: center;
+}
+
+.text {
+    width: 35rem;
+    padding-left: 2rem;
+    border-right: 3px solid rgb(239, 239, 239);
+    border-left: 3px solid rgb(239, 239, 239);
+}
+
+.task-bar--item.text.done {
+    position: relative;
+    text-decoration: line-through;
+  }
+
+.due-date {
+    width: 7rem;
+    justify-content: center;
+    border-right: 3px solid rgb(239, 239, 239)
+}
+
+.category {
+    width: 10rem;
+    justify-content: center;
+    border-right: 3px solid rgb(239, 239, 239);
+}
+
+.category > div {
+    background-color: rgb(178, 120, 175);
+    padding: 0.25rem 0.6rem;
+    min-width: 5rem;
+    text-align: center;
+    border-radius: 1rem;;
+}
+
+.remove {
+    width: 3rem;
+    justify-content: center;
+}
