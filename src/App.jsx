@@ -5,6 +5,7 @@ import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 import Calendar from "./components/TaskList/Calendar";
+import OptionBar from "./components/SideBar/SideBar";
 import "./App.css";
 
 const date = DateTime.local(2023, 6, 10);
@@ -63,17 +64,37 @@ function App() {
   const [enteredTask, setEnteredTask] = useState("");
   const [tasks, setTasks] = useState(DUMMY_TASKS);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
+  const [sideBarIsShown, setSideBarIsShown] = useState(false);
+  const [selectedDay, setSelectedDay] = useState(undefined);
+  const [enteredTag, setEnteredTag] = useState("");
 
   const showCalendarHandler = () => {
     setCalendarIsShown(true);
-  }
+  };
+
+  const handleDayClick = (day, { selectedDay }) => {
+    setSelectedDay(selectedDay ? undefined : day);
+    console.log(
+      day.toLocaleDateString("en-UK", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    );
+  };
 
   const taskInputChangeHandler = (event) => {
     setEnteredTask(event.target.value);
+  };
 
+  const tagInputChangeHandler = (event) => {
+    setEnteredTag(event.target.value);
+    console.log(event.target.value);
   };
 
   const enteredTaskIsValid = enteredTask.trim().length !== 0;
+
+  const enteredTagIsValid = enteredTag.trim().length !== 0;
 
   const addNewTaskHandler = (event) => {
     event.preventDefault();
@@ -81,11 +102,24 @@ function App() {
       const newTask = {
         id: tasks.length + 1,
         text: enteredTask,
-        date: "None",
-        category: "None",
+        date: selectedDay
+          ? selectedDay.toLocaleDateString("en-UK", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          : "no date",
+        category: enteredTag,
         isDone: false,
       };
       setTasks((prevTasks) => [newTask, ...prevTasks]);
+      setEnteredTask("");
+    }
+  };
+
+  const addNewTaskOnEnterHandler = (event) => {
+    if (event.key === "Enter") {
+      addNewTaskHandler(event);
     }
   };
 
@@ -105,13 +139,22 @@ function App() {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
 
+  const toggleSideBar = () => {
+    setSideBarIsShown(!sideBarIsShown);
+  };
+
   return (
     <div className="app">
-      <Header />
+      <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
+      {sideBarIsShown && <OptionBar />}
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
+        tagInputChangeHandler={tagInputChangeHandler}
         addNewTaskHandler={addNewTaskHandler}
+        addNewTaskOnEnterHandler={addNewTaskOnEnterHandler}
         showCalendarHandler={showCalendarHandler}
+        handleDayClick={handleDayClick}
+        selectedDay={selectedDay}
       />
       {calendarIsShown && <Calendar />}
       <TaskList
@@ -119,7 +162,6 @@ function App() {
         removeTaskHandler={removeTaskHandler}
         tasks={tasks}
       />
-      <Calendar />
     </div>
   );
 }

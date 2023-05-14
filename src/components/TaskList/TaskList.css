@@ -1,5 +1,42 @@
-.task-list {
+.bar-label {
+    margin: 0;
+    text-align: center;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.label-done {
+    width: 3.5rem;
+}
+
+.label-text {
+    width: 35rem;
+}
+
+.label-date {
+    width: 7rem;
+}
+
+.label-tag {
+    width: 10rem;
+}
+
+.label-remove {
+    width: 3.5rem;
+}
+
+.column-titles {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: space-around center;
+    width: 55rem;
+    gap: 3px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     align-items: center;
 }

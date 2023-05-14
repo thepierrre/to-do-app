@@ -6,28 +6,40 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 // const tasksList = props.tasksList;
 
 const SingleTask = (props) => {
-  const taskTextClassName = `task-bar--item text ${props.isDone ? "done" : ""}`;
+  const {
+    isDone,
+    task,
+    text,
+    date,
+    category,
+    removeTaskHandler,
+    markTaskAsDoneHandler,
+  } = props;
 
+  const taskTextClassName = `task-bar--item text ${props.isDone ? "done" : ""}`;
+  const taskDateClassName = `${
+    date === "no date"
+      ? "task-bar--item due-date no-date"
+      : "task-bar--item due-date"
+  }`;
 
   return (
     <div className="task-bar">
-      <IconButton
-        onClick={props.markTaskAsDoneHandler}
-        className="task-bar--item button tick"
-      >
-        <CheckCircleOutlineIcon />
-      </IconButton>
-      <div className={taskTextClassName}>{props.text}</div>
-      <div className="task-bar--item due-date">{props.date}</div>
-      <div className="task-bar--item category">
-        <div>{props.category}</div>
+      <div className="task-bar--item button tick">
+        <IconButton onClick={markTaskAsDoneHandler}>
+          <CheckCircleOutlineIcon />
+        </IconButton>
       </div>
-      <IconButton
-        onClick={props.removeTaskHandler}
-        className="task-bar--item button remove"
-      >
-        <DeleteOutlineIcon />
-      </IconButton>
+      <div className={taskTextClassName}>{text}</div>
+      <div className={taskDateClassName}>{date}</div>
+      <div className="task-bar--item category">
+        <div>{category}</div>
+      </div>
+      <div className="task-bar--item button remove">
+        <IconButton onClick={removeTaskHandler}>
+          <DeleteOutlineIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };
