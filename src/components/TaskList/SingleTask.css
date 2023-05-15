@@ -27,7 +27,7 @@
     align-items: center;
     background-color: white;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-    font-size: 0.98rem;
+    font-size: 0.95rem;
 }
 
 .tick {
@@ -41,7 +41,8 @@
 }
 
 .no-date {
-    font-style: italic;
+    font-size: 0.9rem;
+    color: rgb(112, 112, 112);
 }
 
 .task-bar--item.text.done {
@@ -54,12 +55,12 @@
     justify-content: center;
 }
 
-.category {
+.tag {
     width: 10rem;
     justify-content: center;
 }
 
-.category > div {
+.tag-inner {
     background-color: rgb(178, 120, 175);
     padding: 0.25rem 0.6rem;
     min-width: 5rem;
@@ -67,7 +68,18 @@
     border-radius: 1rem;;
 }
 
+.empty {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.9rem;
+    color: rgb(112, 112, 112);
+}
+
 .remove {
     justify-content: center;
     width: 3.5rem;
+}
+
+[contentEditable]:focus {
+    outline: 2px solid #0288d1;
 }

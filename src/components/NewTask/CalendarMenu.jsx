@@ -3,7 +3,8 @@ import { DayPicker } from "react-day-picker";
 import { useState } from "react";
 
 import IconButton from "@mui/material/IconButton";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import Menu from "@mui/material/Menu";
 
 const CalendarMenu = (props) => {
@@ -31,7 +32,7 @@ const CalendarMenu = (props) => {
         edge="start"
         onClick={handleClick}
       >
-        <CalendarMonthIcon />
+        {!selectedDay ? <EditCalendarIcon /> : <EventAvailableIcon color="info"/>}
       </IconButton>
       <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
         <DayPicker

@@ -23,6 +23,10 @@ const SingleTask = (props) => {
       : "task-bar--item due-date"
   }`;
 
+  const taskTagInnerClassName = `${
+    category === "" || category === "no tag" ? "tag-inner empty" : "tag-inner"
+  }`;
+
   return (
     <div className="task-bar">
       <div className="task-bar--item button tick">
@@ -30,10 +34,10 @@ const SingleTask = (props) => {
           <CheckCircleOutlineIcon />
         </IconButton>
       </div>
-      <div className={taskTextClassName}>{text}</div>
+      <div contentEditable="true" suppressContentEditableWarning={true} className={taskTextClassName}>{text}</div>
       <div className={taskDateClassName}>{date}</div>
-      <div className="task-bar--item category">
-        <div>{category}</div>
+      <div className="task-bar--item tag">
+        <div className={taskTagInnerClassName}>{category}</div>
       </div>
       <div className="task-bar--item button remove">
         <IconButton onClick={removeTaskHandler}>

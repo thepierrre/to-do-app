@@ -5,7 +5,7 @@ import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 import Calendar from "./components/TaskList/Calendar";
-import OptionBar from "./components/SideBar/SideBar";
+import SideBar from "./components/SideBar/SideBar";
 import "./App.css";
 
 const date = DateTime.local(2023, 6, 10);
@@ -60,6 +60,25 @@ let DUMMY_TASKS = [
   },
 ];
 
+let DUMMY_LISTS = [
+  {
+    id: 1,
+    name: "List 1",
+    tasks: [DUMMY_TASKS],
+  },
+  {
+    id: 2,
+    name: "List 2",
+    tasks: [DUMMY_TASKS],
+  },
+  {
+    id: 3,
+    name: "List 3",
+    tasks: [DUMMY_TASKS],
+  },
+
+];
+
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
   const [tasks, setTasks] = useState(DUMMY_TASKS);
@@ -109,7 +128,7 @@ function App() {
               year: "numeric",
             })
           : "no date",
-        category: enteredTag,
+        category: enteredTag ? enteredTag : "no tag",
         isDone: false,
       };
       setTasks((prevTasks) => [newTask, ...prevTasks]);
@@ -123,20 +142,31 @@ function App() {
     }
   };
 
+  
+
   const markTaskAsDoneHandler = (taskId) => {
     setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
+      const updatedTasks = prevTasks.map((task) => {
         if (task.id === taskId) {
           return { ...task, isDone: true };
         } else {
           return task;
         }
       });
+
+      // const doneTask = updatedTasks.find((task) => task.id === taskId && task.isDone)
+      // if (doneTask) {
+      //   const doneTaskIndex = updatedTasks.indexOf(doneTask);
+      //   updatedTasks.push(updatedTasks.splice(doneTaskIndex, 1)[0]);
+      // }
+
+      return updatedTasks;
     });
   };
 
   const removeTaskHandler = (taskId) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    console.log(DUMMY_LISTS);
   };
 
   const toggleSideBar = () => {
@@ -146,7 +176,7 @@ function App() {
   return (
     <div className="app">
       <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
-      {sideBarIsShown && <OptionBar />}
+      {sideBarIsShown && <SideBar />}
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
         tagInputChangeHandler={tagInputChangeHandler}
