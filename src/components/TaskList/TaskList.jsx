@@ -4,15 +4,18 @@ import SingleTask from "./SingleTask";
 import "./TaskList.css";
 
 const TaskList = (props) => {
-  const { tasks, removeTaskHandler, markTaskAsDoneHandler } = props;
+  const { tasks, removeTaskHandler, tags, markTaskAsDoneHandler, tagColor } =
+    props;
 
   const tasksList = tasks.map((task) => (
     <SingleTask
       key={task.id}
       text={task.text}
       date={task.date}
-      category={task.category}
+      tag={task.tag}
       isDone={task.isDone}
+      tags={tags}
+      tagColor={tagColor}
       removeTaskHandler={() => removeTaskHandler(task.id)}
       markTaskAsDoneHandler={() => markTaskAsDoneHandler(task.id)}
     />

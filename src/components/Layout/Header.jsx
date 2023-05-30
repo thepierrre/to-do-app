@@ -1,8 +1,7 @@
 import "./Header.css";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 const Header = (props) => {
   const { toggleSideBar, sideBarIsShown } = props;
@@ -11,7 +10,7 @@ const Header = (props) => {
     <>
       <header className="header">
         <IconButton className="option-bar-button" onClick={toggleSideBar}>
-          {!sideBarIsShown && <MenuIcon fontSize="large"/>}
+          {!sideBarIsShown && <MenuIcon fontSize="large" />}
           {sideBarIsShown && <MenuOpenIcon fontSize="large" />}
         </IconButton>
         <h1>My Tasks</h1>

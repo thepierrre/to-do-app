@@ -1,4 +1,4 @@
-import './NewList.css';
+import "./NewList.css";
 
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";

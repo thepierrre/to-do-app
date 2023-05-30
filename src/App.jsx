@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
+import { v4 as uuidv4 } from "uuid";
+
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
@@ -21,46 +23,45 @@ let DUMMY_TASKS = [
     id: 1,
     text: "Learn Spanish for 20 minutes",
     date: formattedDate,
-    category: "Languages",
+    tag: "Languages",
     isDone: false,
   },
   {
     id: 2,
     text: "Do lower body training in the gym",
     date: formattedDate,
-    category: "Sport",
+    tag: "Sport",
     isDone: false,
   },
   {
     id: 3,
     text: "Learn programming for 2 hours",
     date: formattedDate,
-    category: "Coding",
+    tag: "Coding",
     isDone: false,
   },
   {
     id: 4,
     text: "Bake a wholegrain bread",
     date: formattedDate,
-    category: "Baking",
+    tag: "Baking",
     isDone: false,
   },
   {
     id: 5,
     text: "Return Amazon items",
     date: formattedDate,
-    category: "Other",
+    tag: "Other",
     isDone: false,
   },
   {
     id: 6,
     text: "Read 30 pages of the book",
     date: formattedDate,
-    category: "Reading",
+    tag: "Reading",
     isDone: false,
   },
 ];
-
 
 let DUMMY_LISTS = [
   {
@@ -80,6 +81,21 @@ let DUMMY_LISTS = [
   },
 ];
 
+const tags = {};
+const tagsColors = [
+  "#B2A4FF",
+  "#FFB4B4",
+  "#804674",
+  "#FFD966",
+  "#C7E9B0",
+  "#8EA7E9",
+  "#FD8A8A",
+  "#9E7676",
+  "#CDFCF6",
+  "#FF8AAE",
+  "#D9D7F1",
+  "#79B4B7",
+];
 
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
@@ -88,6 +104,7 @@ function App() {
   const [sideBarIsShown, setSideBarIsShown] = useState(false);
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [enteredTag, setEnteredTag] = useState("");
+  const [tagColor, setTagColor] = useState(undefined);
 
   const showCalendarHandler = () => {
     setCalendarIsShown(true);
@@ -95,13 +112,6 @@ function App() {
 
   const handleDayClick = (day, { selectedDay }) => {
     setSelectedDay(selectedDay ? undefined : day);
-    // console.log(
-    //   day.toLocaleDateString("en-UK", {
-    //     day: "numeric",
-    //     month: "short",
-    //     year: "numeric",
-    //   })
-    // );
   };
 
   const taskInputChangeHandler = (event) => {
@@ -110,39 +120,54 @@ function App() {
 
   const tagInputChangeHandler = (event) => {
     setEnteredTag(event.target.value);
-    // console.log(event.target.value);
-    console.log(DUMMY_TASKS);
   };
 
   const enteredTaskIsValid = enteredTask.trim().length !== 0;
 
-  // const enteredTagIsValid = enteredTag.trim().length !== 0;
-
   const formattedDate = selectedDay
-  ? selectedDay.toLocaleDateString("en-UK", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    })
-  : "no date"
+    ? selectedDay.toLocaleDateString("en-UK", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "no date";
+
+  const getRandomColor = () => {
+    return tagsColors[Math.floor(Math.random() * tagsColors.length)];
+  };
 
   const addNewTaskHandler = (event) => {
     event.preventDefault();
     if (enteredTaskIsValid) {
       const newTask = {
-        id: tasks.length + 1,
+        id: uuidv4(),
         text: enteredTask,
         date: formattedDate,
-        category: enteredTag ? enteredTag : "no tag",
+        tag: enteredTag ? enteredTag : "no tag",
         isDone: false,
       };
-    
+
+      const color = getRandomColor();
+      if (enteredTag && !tags[enteredTag]) {
+        // const color = getRandomColor();
+        tags[enteredTag] = {
+          color,
+          id: `${newTask.id}tag`,
+        };
+        let usedColorIndex = tagsColors.indexOf(color);
+        tagsColors.splice(usedColorIndex, 1);
+        console.log(tags);
+        console.log(tags[enteredTag].color);
+        // setTagColor(color);
+      }
+      setTagColor(color);
 
       setTasks((prevTasks) => [newTask, ...prevTasks]);
 
       localStorage.setItem("tasks", JSON.stringify([newTask, ...tasks]));
+
       setEnteredTask("");
-      event.target.value = "";
+      setEnteredTag("");
     }
   };
 
@@ -187,7 +212,7 @@ function App() {
   return (
     <div className="app">
       <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
-      {sideBarIsShown && <SideBar TASKS={DUMMY_TASKS} LISTS={DUMMY_LISTS}/>}
+      {sideBarIsShown && <SideBar TASKS={DUMMY_TASKS} LISTS={DUMMY_LISTS} />}
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
         tagInputChangeHandler={tagInputChangeHandler}
@@ -196,12 +221,17 @@ function App() {
         showCalendarHandler={showCalendarHandler}
         handleDayClick={handleDayClick}
         selectedDay={selectedDay}
+        tagColor={tagColor}
+        enteredTask={enteredTask}
+        enteredTag={enteredTag}
       />
       {calendarIsShown && <Calendar />}
       <TaskList
         markTaskAsDoneHandler={markTaskAsDoneHandler}
         removeTaskHandler={removeTaskHandler}
         tasks={tasks}
+        tags={tags}
+        tagColor={tagColor}
       />
     </div>
   );

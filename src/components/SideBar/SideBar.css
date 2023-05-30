@@ -1,35 +1,33 @@
 .side-bar {
-    position: fixed;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 25rem;
-    background-color: white;
-    animation-duration: 0.2s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-    z-index: 1;
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 25rem;
+  background-color: white;
+  animation-duration: 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  z-index: 1;
 }
 
 .side-bar.appear {
-    animation-name: slide-from-left;
-    animation-direction: normal;
+  animation-name: slide-from-left;
+  animation-direction: normal;
 }
 
 .side-bar.disappear {
-    animation-name: slide-from-left;
-    animation-direction: reverse;
-  }
-
-
+  animation-name: slide-from-left;
+  animation-direction: reverse;
+}
 
 @keyframes slide-from-left {
-    0% {
-        left: -25rem
-    }
-    100% {
-        left: 0%;
-    }
+  0% {
+    left: -25rem;
+  }
+  100% {
+    left: 0%;
+  }
 }

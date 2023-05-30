@@ -1,28 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
 .header {
-    width: 40%;
-    /* height: 10rem; */
-    margin: 4rem 0 4rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-    color: rgb(37, 37, 37);
+  width: 40%;
+  /* height: 10rem; */
+  margin: 4rem 0 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  color: rgb(37, 37, 37);
 }
 
 .header h1 {
-    font-size: 2.75rem;
-    position: relative;
-    padding: 0;
-    margin: 0;
+  font-size: 2.75rem;
+  position: relative;
+  padding: 0;
+  margin: 0;
 }
 
 .side-bar-button {
-    position: relative;
-    margin: 0;
-    padding: 0;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }

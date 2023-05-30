@@ -12,8 +12,10 @@ const NewTask = (props) => {
     tagInputChangeHandler,
     addNewTaskOnEnterHandler,
     enteredTask,
+    enteredTag,
     handleDayClick,
     selectedDay,
+    tagColor,
   } = props;
 
   return (
@@ -40,6 +42,7 @@ const NewTask = (props) => {
         <Input
           onChange={tagInputChangeHandler}
           onKeyDown={addNewTaskOnEnterHandler}
+          value={enteredTag}
           placeholder="Tag (optional)"
         />
       </FormControl>

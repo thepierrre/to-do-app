@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
-body, html {
+body,
+html {
   /* background-image: linear-gradient(rgb(201, 238, 255), rgb(151, 222, 255)); */
   background-color: rgb(243, 243, 243);
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .app {

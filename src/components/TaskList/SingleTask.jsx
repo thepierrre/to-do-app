@@ -2,6 +2,7 @@ import "./SingleTask.css";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
 // const tasksList = props.tasksList;
 
@@ -11,18 +12,24 @@ const SingleTask = (props) => {
     task,
     text,
     date,
-    category,
+    tag,
     removeTaskHandler,
     markTaskAsDoneHandler,
+    tags,
+    tagColor,
   } = props;
 
   const taskTextClassName = `task-bar--item text ${props.isDone ? "done" : ""}`;
 
-  const taskDateClassName = `task-bar--item due-date ${date === "no date" ? "no-date" : ""} ${new Date(date) < new Date() ? "past-date" : ""}`
-
-  const taskTagInnerClassName = `${
-    category === "" || category === "no tag" ? "tag-inner empty" : "tag-inner"
+  const taskDateClassName = `task-bar--item due-date ${
+    date === "no date" ? "no-date" : ""
   }`;
+
+  const taskTagInnerClassName = `tag-inner ${
+    tag === "" || tag === "no tag" ? "empty" : ""
+  }`;
+
+  const color = tags[tag]?.color;
 
   return (
     <div className="task-bar">
@@ -31,10 +38,28 @@ const SingleTask = (props) => {
           <CheckCircleOutlineIcon />
         </IconButton>
       </div>
-      <div contentEditable="true" suppressContentEditableWarning={true} className={taskTextClassName}>{text}</div>
-      <div className={taskDateClassName}>{date}</div>
+      <div
+        contentEditable="true"
+        suppressContentEditableWarning={true}
+        className={taskTextClassName}
+      >
+        {text}
+      </div>
+      <div className={taskDateClassName}>
+        {new Date(date) < new Date() && (
+          <PriorityHighIcon fontSize="small" color="error" />
+        )}
+        <span>{date}</span>
+      </div>
       <div className="task-bar--item tag">
-        <div className={taskTagInnerClassName} contentEditable="true" suppressContentEditableWarning={true}>{category}</div>
+        <div
+          className={taskTagInnerClassName}
+          contentEditable="true"
+          suppressContentEditableWarning={true}
+          style={{ backgroundColor: color }}
+        >
+          {tag}
+        </div>
       </div>
       <div className="task-bar--item button remove">
         <IconButton onClick={removeTaskHandler}>
