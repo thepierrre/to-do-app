@@ -1,7 +1,8 @@
 .side-bar {
     position: fixed;
+    flex-direction: column;
     display: flex;
-    justify-content: center;
+    align-items: center;
     left: 0;
     top: 0;
     bottom: 0;
@@ -22,38 +23,7 @@
     animation-direction: reverse;
   }
 
-  .side-bar--content {
-    position: relative;
-    margin-top: 2rem;
-    width: 70%;
-  }
 
-  .side-bar--content > h2 {
-    text-align: center;
-    font-size: 2rem;
-  }
-
-.side-bar--content > ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 2.5rem;
-}
-
-.side-bar--content > ul > li {
-    padding: 0.5rem 2rem 0.5rem 2rem;
-    margin: 0.5rem;
-    border-bottom: 1px solid rgb(156, 156, 156);
-    font-size: 0.95rem;
-}
-
-.input-items {
-    margin-top: 3rem;
-    text-align: center;
-}
-
-.my-lists--input {
-    width: 12rem;
-}
 
 @keyframes slide-from-left {
     0% {

@@ -17,11 +17,8 @@ const SingleTask = (props) => {
   } = props;
 
   const taskTextClassName = `task-bar--item text ${props.isDone ? "done" : ""}`;
-  const taskDateClassName = `${
-    date === "no date"
-      ? "task-bar--item due-date no-date"
-      : "task-bar--item due-date"
-  }`;
+
+  const taskDateClassName = `task-bar--item due-date ${date === "no date" ? "no-date" : ""} ${new Date(date) < new Date() ? "past-date" : ""}`
 
   const taskTagInnerClassName = `${
     category === "" || category === "no tag" ? "tag-inner empty" : "tag-inner"
@@ -37,7 +34,7 @@ const SingleTask = (props) => {
       <div contentEditable="true" suppressContentEditableWarning={true} className={taskTextClassName}>{text}</div>
       <div className={taskDateClassName}>{date}</div>
       <div className="task-bar--item tag">
-        <div className={taskTagInnerClassName}>{category}</div>
+        <div className={taskTagInnerClassName} contentEditable="true" suppressContentEditableWarning={true}>{category}</div>
       </div>
       <div className="task-bar--item button remove">
         <IconButton onClick={removeTaskHandler}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
 import Header from "./components/Layout/Header";
@@ -9,7 +9,8 @@ import SideBar from "./components/SideBar/SideBar";
 import "./App.css";
 
 const date = DateTime.local(2023, 6, 10);
-const formattedDate = date.toLocaleString({
+
+export const formattedDate = date.toLocaleString({
   month: "short",
   day: "numeric",
   year: "numeric",
@@ -60,6 +61,7 @@ let DUMMY_TASKS = [
   },
 ];
 
+
 let DUMMY_LISTS = [
   {
     id: 1,
@@ -76,12 +78,12 @@ let DUMMY_LISTS = [
     name: "List 3",
     tasks: [DUMMY_TASKS],
   },
-
 ];
+
 
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
-  const [tasks, setTasks] = useState(DUMMY_TASKS);
+  const [tasks, setTasks] = useState([]);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
   const [sideBarIsShown, setSideBarIsShown] = useState(false);
   const [selectedDay, setSelectedDay] = useState(undefined);
@@ -93,13 +95,13 @@ function App() {
 
   const handleDayClick = (day, { selectedDay }) => {
     setSelectedDay(selectedDay ? undefined : day);
-    console.log(
-      day.toLocaleDateString("en-UK", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
-    );
+    // console.log(
+    //   day.toLocaleDateString("en-UK", {
+    //     day: "numeric",
+    //     month: "short",
+    //     year: "numeric",
+    //   })
+    // );
   };
 
   const taskInputChangeHandler = (event) => {
@@ -108,12 +110,21 @@ function App() {
 
   const tagInputChangeHandler = (event) => {
     setEnteredTag(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    console.log(DUMMY_TASKS);
   };
 
   const enteredTaskIsValid = enteredTask.trim().length !== 0;
 
-  const enteredTagIsValid = enteredTag.trim().length !== 0;
+  // const enteredTagIsValid = enteredTag.trim().length !== 0;
+
+  const formattedDate = selectedDay
+  ? selectedDay.toLocaleDateString("en-UK", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  : "no date"
 
   const addNewTaskHandler = (event) => {
     event.preventDefault();
@@ -121,18 +132,17 @@ function App() {
       const newTask = {
         id: tasks.length + 1,
         text: enteredTask,
-        date: selectedDay
-          ? selectedDay.toLocaleDateString("en-UK", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })
-          : "no date",
+        date: formattedDate,
         category: enteredTag ? enteredTag : "no tag",
         isDone: false,
       };
+    
+
       setTasks((prevTasks) => [newTask, ...prevTasks]);
+
+      localStorage.setItem("tasks", JSON.stringify([newTask, ...tasks]));
       setEnteredTask("");
+      event.target.value = "";
     }
   };
 
@@ -141,8 +151,6 @@ function App() {
       addNewTaskHandler(event);
     }
   };
-
-  
 
   const markTaskAsDoneHandler = (taskId) => {
     setTasks((prevTasks) => {
@@ -153,30 +161,33 @@ function App() {
           return task;
         }
       });
-
-      // const doneTask = updatedTasks.find((task) => task.id === taskId && task.isDone)
-      // if (doneTask) {
-      //   const doneTaskIndex = updatedTasks.indexOf(doneTask);
-      //   updatedTasks.push(updatedTasks.splice(doneTaskIndex, 1)[0]);
-      // }
-
       return updatedTasks;
     });
   };
 
   const removeTaskHandler = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    console.log(DUMMY_LISTS);
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
+      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      return updatedTasks;
+    });
   };
 
   const toggleSideBar = () => {
     setSideBarIsShown(!sideBarIsShown);
   };
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks", JSON.stringify(tasks));
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
   return (
     <div className="app">
       <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
-      {sideBarIsShown && <SideBar />}
+      {sideBarIsShown && <SideBar TASKS={DUMMY_TASKS} LISTS={DUMMY_LISTS}/>}
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
         tagInputChangeHandler={tagInputChangeHandler}

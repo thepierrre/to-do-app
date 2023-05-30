@@ -83,3 +83,7 @@
 [contentEditable]:focus {
     outline: 2px solid #0288d1;
 }
+
+.past-date {
+    color: rgb(181, 0, 0);
+}

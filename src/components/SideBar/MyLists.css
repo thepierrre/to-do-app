@@ -1,0 +1,23 @@
+.lists {
+    position: relative;
+    margin-top: 2rem;
+    width: 70%;
+  }
+
+  .lists > h2 {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+.lists > ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 2.5rem;
+}
+
+.lists > ul > li {
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    margin: 0.5rem;
+    border-bottom: 1px solid rgb(156, 156, 156);
+    font-size: 0.95rem;
+}
