@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: space-around center;
-  width: 55rem;
+  width: 60rem;
   gap: 3px;
 
   /* border-bottom: 3px solid rgb(239, 239, 239); */
@@ -31,12 +31,12 @@
 }
 
 .tick {
-  width: 3.5rem;
+  width: 5rem;
   justify-content: center;
 }
 
 .text {
-  width: 35rem;
+  width: 30rem;
   padding-left: 2rem;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .due-date {
-  width: 7rem;
+  width: 10rem;
   justify-content: center;
 }
 
@@ -77,7 +77,7 @@
 
 .remove {
   justify-content: center;
-  width: 3.5rem;
+  width: 5rem;
 }
 
 [contentEditable]:focus {

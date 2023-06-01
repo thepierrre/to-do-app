@@ -4,19 +4,15 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
-// const tasksList = props.tasksList;
-
 const SingleTask = (props) => {
   const {
-    isDone,
-    task,
     text,
     date,
     tag,
     removeTaskHandler,
     markTaskAsDoneHandler,
     tags,
-    tagColor,
+    tasks,
   } = props;
 
   const taskTextClassName = `task-bar--item text ${props.isDone ? "done" : ""}`;

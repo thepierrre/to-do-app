@@ -1,20 +1,31 @@
 .bar-label {
   margin: 0;
   text-align: center;
+  box-sizing: border-box;
   font-size: 0.75rem;
-  margin-bottom: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sort {
+  color: #0288d1;
 }
 
 .label-done {
-  width: 3.5rem;
+  width: 6rem;
+}
+
+.label-done.filter-button {
+  margin: 0;
 }
 
 .label-text {
-  width: 35rem;
+  width: 30rem;
 }
 
 .label-date {
-  width: 7rem;
+  width: 10rem;
 }
 
 .label-tag {
@@ -22,21 +33,21 @@
 }
 
 .label-remove {
-  width: 3.5rem;
+  width: 5rem;
 }
 
 .column-titles {
   display: flex;
   flex-direction: row;
+  width: 60rem;
+  gap: 3px;
   justify-content: center;
   align-items: space-around center;
-  width: 55rem;
-  gap: 3px;
 }
 
 .task-list {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  align-items: center;
+  align-items: space-around center;
 }

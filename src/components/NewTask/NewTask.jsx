@@ -15,7 +15,6 @@ const NewTask = (props) => {
     enteredTag,
     handleDayClick,
     selectedDay,
-    tagColor,
   } = props;
 
   return (
