@@ -8,6 +8,14 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import IconButton from "@mui/material/IconButton";
+import {
+  ASC_SORT,
+  DESC_SORT,
+  DONE_SORT,
+  DATE_SORT,
+  TEXT_SORT,
+  TAG_SORT,
+} from "../../helpers/sortingFunctions";
 
 const TaskList = (props) => {
   const {
@@ -19,53 +27,80 @@ const TaskList = (props) => {
     sortByTagHandler,
     sortByDateHandler,
     sortByDoneHandler,
-    sortedByTask,
     sortedByTag,
-    sortedByDone,
     sortedByDate,
     sortedBy,
-    setSortedBy,
-    TEXT_SORT,
-    ASC_SORT,
-    DESC_SORT,
+    setTasks,
+    editTaskTextHandler,
+    editTaskDateHandler,
+    editTaskTagHandler,
+    taskInputChangeHandler,
+    editedTask,
   } = props;
 
   const tasksList = tasks.map((task) => (
     <SingleTask
       key={task.id}
-      text={task.text}
-      date={task.date}
-      tag={task.tag}
-      isDone={task.isDone}
+      task={task}
+      editedTask={editedTask}
+      taskInputChangeHandler={taskInputChangeHandler}
       tags={tags}
+      setTasks={setTasks}
+      editTaskTagHandler={(enteredTag) =>
+        editTaskTagHandler(task.id, enteredTag)
+      }
+      editTaskTextHandler={(enteredText) =>
+        editTaskTextHandler(task.id, enteredText)
+      }
+      editTaskDateHandler={(enteredDate) =>
+        editTaskDateHandler(task.id, enteredDate)
+      }
       removeTaskHandler={() => removeTaskHandler(task.id)}
       markTaskAsDoneHandler={() => markTaskAsDoneHandler(task.id)}
     />
   ));
-  // setSortedBy({ feature: DATE_SORT, direction: ASC_SORT });
-  // !sortedBy.feature && !sortedBy.direction;
 
-  const labelInternalClass = `${
-    sortedBy.feature && sortedBy.direction ? "sort" : ""
+  const labelDoneInternalClass = `${
+    sortedBy.feature === DONE_SORT ? "sort" : ""
+  }`;
+
+  const labelTextInternalClass = `${
+    sortedBy.feature === TEXT_SORT ? "sort" : ""
+  }`;
+
+  const labelDateInternalClass = `${
+    sortedBy.feature === DATE_SORT ? "sort" : ""
+  }`;
+
+  const labelTagInternalClass = `${
+    sortedBy.feature === TAG_SORT ? "sort" : ""
   }`;
 
   return (
-    <>
-      <div className="task-list">
+    <div>
+      <div className="tasks-list">
         {tasks.length === 0 && <p>Your tasks will appear here.</p>}
         {tasks.length !== 0 && (
-          <div className="column-titles">
-            <span className="bar-label label-done">
-              <p>Done</p>
+          <div className="labels">
+            <span className="label label-done">
+              <p className={labelDoneInternalClass}>Done</p>
               <IconButton className="filter-button" onClick={sortByDoneHandler}>
-                {!sortedByDone && <UnfoldMoreIcon />}
-                {sortedByDone && <ArrowDropUpIcon color="primary" />}
+                {sortedBy.feature !== DONE_SORT && <UnfoldMoreIcon />}
+                {sortedBy.feature === DONE_SORT &&
+                  sortedBy.direction === ASC_SORT && (
+                    <KeyboardArrowUpIcon color="primary" />
+                  )}
+                {sortedBy.feature === DONE_SORT &&
+                  sortedBy.direction === DESC_SORT && (
+                    <KeyboardArrowDownIcon color="primary" />
+                  )}
               </IconButton>
             </span>
-            <span className="bar-label label-text">
-              <p className={labelInternalClass}>Task</p>
+
+            <span className="label label-text">
+              <p className={labelTextInternalClass}>Task</p>
               <IconButton className="filter-button" onClick={sortByTaskHandler}>
-                {!sortedBy.feature && !sortedBy.direction && <UnfoldMoreIcon />}
+                {sortedBy.feature !== TEXT_SORT && <UnfoldMoreIcon />}
                 {sortedBy.feature === TEXT_SORT &&
                   sortedBy.direction === ASC_SORT && (
                     <KeyboardArrowUpIcon color="primary" />
@@ -76,28 +111,30 @@ const TaskList = (props) => {
                   )}
               </IconButton>
             </span>
-            <span className="bar-label label-date">
-              <p>Due date</p>
+
+            <span className="label label-date">
+              <p className={labelDateInternalClass}>Due date</p>
               <IconButton className="filter-button" onClick={sortByDateHandler}>
                 {!sortedByDate && <UnfoldMoreIcon />}
                 {sortedByDate && <ArrowDropUpIcon color="primary" />}
               </IconButton>
             </span>
-            <span className="bar-label label-tag">
-              <p>Tag</p>
+
+            <span className="label label-tag">
+              <p className={labelTagInternalClass}>Tag</p>
               <IconButton className="filter-button" onClick={sortByTagHandler}>
                 {!sortedByTag && <UnfoldMoreIcon />}
                 {sortedByTag && <ArrowDropUpIcon color="primary" />}
               </IconButton>
             </span>
-            <span className="bar-label label-remove">
+            <span className="label label-remove">
               <p>Bin</p>
             </span>
           </div>
         )}
         {tasksList}
       </div>
-    </>
+    </div>
   );
 };
 

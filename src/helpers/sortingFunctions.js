@@ -1,25 +1,18 @@
-// import { tasks, sortedBy } from "../App.jsx";
-import { useState } from "react";
-
-export const [tasks, setTasks] = useState([]);
-
-const useSortedState = () => {
-  const [sortedBy, setSortedBy] = useState({
-    feature: undefined,
-    direction: undefined,
-  });
-  return [sortedBy, setSortedBy];
-};
-
 export const DONE_SORT = "DONE";
 export const TEXT_SORT = "TEXT";
 export const TAG_SORT = "TAG";
 export const DATE_SORT = "DATE";
 export const DESC_SORT = "DESC";
 export const ASC_SORT = "ASC";
+export const TIMESTAMP_SORT = "TIMESTAMP";
 
-export const sortByTimestamp = () => {
-  const updatedTasks = [...tasks].sort((a, b) => {
+export const DEFAULT_SORT = {
+  feature: TIMESTAMP_SORT,
+  direction: undefined,
+};
+
+export const sortByTimestamp = (tasks) => {
+  return [...tasks].sort((a, b) => {
     if (a.timestamp > b.timestamp) {
       return -1;
     } else if (a.timestamp < b.timestamp) {
@@ -28,52 +21,143 @@ export const sortByTimestamp = () => {
       return 0;
     }
   });
-  setTasks(updatedTasks);
-  localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
 };
 
-export const getTasks = () => {
-  const storedTasks = JSON.parse(localStorage.getItem("tasks"));
-  console.log(storedTasks);
+const sortByDoneAsc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.isDone && !b.isDone) {
+      return 1;
+    } else if (!a.isDone && b.isDone) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
 };
 
-export const getSortedTasks = (tasks, feature) => {
-  const [sortedByState, setSortedByState] = useSortedState();
-  const storedTasks = getTasks();
+const sortByDoneDesc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.isDone && !b.isDone) {
+      return -1;
+    } else if (!a.isDone && b.isDone) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+};
 
-  if (feature === TEXT_SORT) {
-    if (!sortedBy.feature && !sortedBy.direction) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.text < b.text) {
-          return -1;
-        } else if (a.text > b.text) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedBy({ feature: TEXT_SORT, direction: ASC_SORT });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+const sortByTextAsc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.text < b.text) {
+      return -1;
+    } else if (a.text > b.text) {
+      return 1;
+    } else {
+      return 0;
     }
-    if (sortedBy.feature === TEXT_SORT && sortedBy.direction === ASC_SORT) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.text < b.text) {
-          return 1;
-        } else if (a.text > b.text) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedBy({ feature: TEXT_SORT, direction: DESC_SORT });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+  });
+};
+
+const sortByTextDesc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.text < b.text) {
+      return 1;
+    } else if (a.text > b.text) {
+      return -1;
+    } else {
+      return 0;
     }
-    if (sortedBy.feature === TEXT_SORT && sortedBy.direction === DESC_SORT) {
-      sortByTimestamp();
-      setSortedBy({ feature: undefined, direction: undefined });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+  });
+};
+
+const sortByDateAsc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (new Date(a.date) < new Date(b.date)) {
+      return -1;
+    } else if (new Date(a.date) > new Date(b.date)) {
+      return 1;
+    } else {
+      return 0;
     }
+  });
+};
+
+const sortByDateDesc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (new Date(a.date) < new Date(b.date)) {
+      return 1;
+    } else if (new Date(a.date) > new Date(b.date)) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+const sortByTagAsc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.tag < b.tag) {
+      return -1;
+    } else if (a.tag > b.tag) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+const sortByTagDesc = (tasks) => {
+  return [...tasks].sort((a, b) => {
+    if (a.tag < b.tag) {
+      return 1;
+    } else if (a.tag > b.tag) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+export const getSortedTasks = (tasks, sortedBy) => {
+  if (sortedBy.feature === TIMESTAMP_SORT) {
+    return sortByTimestamp(tasks);
+  } else if (
+    sortedBy.feature === DONE_SORT &&
+    sortedBy.direction === ASC_SORT
+  ) {
+    return sortByDoneAsc(tasks);
+  } else if (
+    sortedBy.feature === DONE_SORT &&
+    sortedBy.direction === DESC_SORT
+  ) {
+    return sortByDoneDesc(tasks);
+  } else if (
+    sortedBy.feature === TEXT_SORT &&
+    sortedBy.direction === ASC_SORT
+  ) {
+    return sortByTextAsc(tasks);
+  } else if (
+    sortedBy.feature === TEXT_SORT &&
+    sortedBy.direction === DESC_SORT
+  ) {
+    return sortByTextDesc(tasks);
+  } else if (
+    sortedBy.feature === DATE_SORT &&
+    sortedBy.direction === ASC_SORT
+  ) {
+    return sortByDateAsc(tasks);
+  } else if (
+    sortedBy.feature === DATE_SORT &&
+    sortedBy.direction === DESC_SORT
+  ) {
+    return sortByDateDesc(tasks);
+  } else if (sortedBy.feature === TAG_SORT && sortedBy.direction === ASC_SORT) {
+    return sortByTagAsc(tasks);
+  } else if (
+    sortedBy.feature === TAG_SORT &&
+    sortedBy.direction === DESC_SORT
+  ) {
+    return sortByTagDesc(tasks);
   }
 };

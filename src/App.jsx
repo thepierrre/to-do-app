@@ -3,23 +3,21 @@ import { DateTime } from "luxon";
 
 import { v4 as uuidv4 } from "uuid";
 
-// import {
-//   getSortedTasks,
-//   getTasks,
-//   sortByTimestamp,
-//   tasks,
-//   setTasks,
-//   TEXT_SORT,
-//   DESC_SORT,
-//   ASC_SORT,
-// } from "./helpers/sortingFunctions.js";
+import {
+  TEXT_SORT,
+  DATE_SORT,
+  DONE_SORT,
+  TAG_SORT,
+  DESC_SORT,
+  ASC_SORT,
+  getSortedTasks,
+  DEFAULT_SORT,
+} from "./helpers/sortingFunctions.js";
 
-import { tagsColors } from "./helpers/dummy.js";
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 import Calendar from "./components/TaskList/Calendar";
-import SideBar from "./components/SideBar/SideBar";
 import "./App.css";
 
 const date = DateTime.local(2023, 6, 10);
@@ -30,89 +28,73 @@ export const formattedDate = date.toLocaleString({
   year: "numeric",
 });
 
-const tags = {};
-
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [sortedTasks, setSortedTasks] = useState(tasks);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
   const [sideBarIsShown, setSideBarIsShown] = useState(false);
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [enteredTag, setEnteredTag] = useState("");
   const [tagColor, setTagColor] = useState(undefined);
+  const [tags, setTags] = useState({});
   const [sortedByDone, setSortedByDone] = useState(false);
   const [sortedByTask, setSortedByTask] = useState(false);
   const [sortedByDate, setSortedByDate] = useState(false);
   const [sortedByTag, setSortedByTag] = useState(false);
 
-  const [sortedBy, setSortedBy] = useState({
-    feature: undefined,
-    direction: undefined,
-  });
+  const [sortedBy, setSortedBy] = useState(DEFAULT_SORT);
 
-  const DONE_SORT = "DONE";
-  const TEXT_SORT = "TEXT";
-  const TAG_SORT = "TAG";
-  const DATE_SORT = "DATE";
-  const DESC_SORT = "DESC";
-  const ASC_SORT = "ASC";
+  useEffect(() => {
+    setSortedTasks(getSortedTasks(tasks, sortedBy));
+  }, [tasks, sortedBy]);
 
-  // const sortByTaskHandler = (tasks, getSortedTasks, useSortedState) => {
-  //   getSortedTasks(tasks, TEXT_SORT);
-  // };
-
-  const sortByTimestamp = () => {
-    const updatedTasks = [...tasks].sort((a, b) => {
-      if (a.timestamp > b.timestamp) {
-        return -1;
-      } else if (a.timestamp < b.timestamp) {
-        return 1;
+  const sortByDoneHandler = () => {
+    if (sortedBy.feature === DONE_SORT) {
+      if (sortedBy.direction === ASC_SORT) {
+        setSortedBy({ feature: DONE_SORT, direction: DESC_SORT });
       } else {
-        return 0;
+        setSortedBy(DEFAULT_SORT);
       }
-    });
-    setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+    } else {
+      setSortedBy({ feature: DONE_SORT, direction: ASC_SORT });
+    }
   };
 
   const sortByTaskHandler = () => {
-    if (!sortedBy.feature && !sortedBy.direction) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.text < b.text) {
-          return -1;
-        } else if (a.text > b.text) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
+    if (sortedBy.feature === TEXT_SORT) {
+      if (sortedBy.direction === ASC_SORT) {
+        setSortedBy({ feature: TEXT_SORT, direction: DESC_SORT });
+      } else {
+        setSortedBy(DEFAULT_SORT);
+      }
+    } else {
       setSortedBy({ feature: TEXT_SORT, direction: ASC_SORT });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-    }
-    if (sortedBy.feature === TEXT_SORT && sortedBy.direction === ASC_SORT) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.text < b.text) {
-          return 1;
-        } else if (a.text > b.text) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedBy({ feature: TEXT_SORT, direction: DESC_SORT });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-    }
-    if (sortedBy.feature === TEXT_SORT && sortedBy.direction === DESC_SORT) {
-      sortByTimestamp();
-      setSortedBy({ feature: undefined, direction: undefined });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
     }
   };
 
-  const showCalendarHandler = () => {
-    setCalendarIsShown(true);
+  const sortByDateHandler = () => {
+    if (sortedBy.feature === DATE_SORT) {
+      if (sortedBy.direction === ASC_SORT) {
+        setSortedBy({ feature: DATE_SORT, direction: DESC_SORT });
+      } else {
+        setSortedBy(DEFAULT_SORT);
+      }
+    } else {
+      setSortedBy({ feature: DATE_SORT, direction: ASC_SORT });
+    }
+  };
+
+  const sortByTagHandler = () => {
+    if (sortedBy.feature === TAG_SORT) {
+      if (sortedBy.direction === ASC_SORT) {
+        setSortedBy({ feature: TAG_SORT, direction: DESC_SORT });
+      } else {
+        setSortedBy(DEFAULT_SORT);
+      }
+    } else {
+      setSortedBy({ feature: TAG_SORT, direction: ASC_SORT });
+    }
   };
 
   const handleDayClick = (day, { selectedDay }) => {
@@ -123,15 +105,92 @@ function App() {
     setEnteredTask(event.target.value);
   };
 
-  const tagInputChangeHandler = (event) => {
-    setEnteredTag(event.target.value);
+  const getRandomColor = () => {
+    return (
+      "hsl(" +
+      360 * Math.random() +
+      "," +
+      (25 + 70 * Math.random()) +
+      "%," +
+      (85 + 10 * Math.random()) +
+      "%)"
+    );
+  };
+
+  const editTaskTextHandler = (taskId, enteredText) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, text: enteredText };
+        } else {
+          return task;
+        }
+      });
+      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      return updatedTasks;
+    });
+  };
+
+  const editTaskDateHandler = (taskId, enteredDate) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            date: enteredDate
+              ? enteredDate.toLocaleDateString("en-UK", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })
+              : "no date",
+          };
+        } else {
+          return task;
+        }
+      });
+      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      return updatedTasks;
+    });
+  };
+
+  // const editTaskTagHandler = (taskId, enteredTag) => {
+  //   const color = getRandomColor();
+  //   setTasks((prevTasks) => {
+  //     const updatedTasks = prevTasks.map((task) => {
+  //       if (task.id === taskId) {
+  //         return { ...task, tag: enteredTag };
+  //       } else {
+  //         return task;
+  //       }
+  //     });
+  //     localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+  //     return updatedTasks;
+  //   });
+  // };
+
+  const editTaskTagHandler = (taskId, enteredTag) => {
+    const color = getRandomColor();
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task.id === taskId) {
+          if (enteredTag && !tags[enteredTag]) {
+            const newTags = { ...tags, [enteredTag]: { color } };
+            setTags(newTags);
+            localStorage.setItem("tags", JSON.stringify(newTags));
+            setTagColor(color);
+            return { ...task, tag: enteredTag };
+          }
+        } else {
+          return task;
+        }
+      });
+      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      return updatedTasks;
+    });
   };
 
   const enteredTaskIsValid = enteredTask.trim().length !== 0;
-
-  const getRandomColor = () => {
-    return tagsColors[Math.floor(Math.random() * tagsColors.length)];
-  };
 
   const addNewTaskHandler = (event) => {
     event.preventDefault();
@@ -153,14 +212,11 @@ function App() {
 
       const color = getRandomColor();
       if (enteredTag && !tags[enteredTag]) {
-        tags[enteredTag] = {
-          color,
-        };
-        let usedColorIndex = tagsColors.indexOf(color);
-        tagsColors.splice(usedColorIndex, 1);
+        const newTags = { ...tags, [enteredTag]: { color } };
+        setTags(newTags);
+        localStorage.setItem("tags", JSON.stringify(newTags));
       }
       setTagColor(color);
-      localStorage.setItem("tagColor", JSON.stringify(color));
 
       setTasks((prevTasks) => [newTask, ...prevTasks]);
 
@@ -186,6 +242,7 @@ function App() {
           return task;
         }
       });
+      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
       return updatedTasks;
     });
   };
@@ -207,116 +264,19 @@ function App() {
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks));
     }
+    const storedTags = localStorage.getItem("tags", JSON.stringify(tags));
+    if (storedTags) {
+      setTags(JSON.parse(storedTags));
+    }
   }, []);
-
-  const sortByDoneHandler = () => {
-    if (!sortedByDone) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.isDone === true && b.isDone === false) {
-          return 1;
-        }
-        if (a.isDone === false && b.isDone === true) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedByDone(!sortedByDone);
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-    } else {
-      sortByTimestamp();
-      setSortedByDone(false);
-    }
-  };
-
-  const sortByDateHandler = () => {
-    setSortedByDone(false);
-    setSortedByTask(false);
-    setSortedByTag(false);
-    if (!sortedByDate) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.date === "no date" && b.date === "no date") {
-          return 0;
-        } else if (a.date === "no date") {
-          return 1;
-        } else if (b.date === "no date") {
-          return -1;
-        }
-
-        if (new Date(a.date) < new Date(b.date)) {
-          return -1;
-        } else if (new Date(a.date) > new Date(b.date)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedByDate(!sortedByDate);
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-    } else if (sortedByDate) {
-      sortByTimestamp();
-      setSortedByDate(false);
-    }
-  };
-
-  const sortByTagHandler = () => {
-    setSortedByDone(false);
-    setSortedByTask(false);
-    setSortedByDate(false);
-    if (!sortedByTag) {
-      const updatedTasks = [...tasks].sort((a, b) => {
-        if (a.tag < b.tag) {
-          return -1;
-        } else if (a.tag > b.tag) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      setTasks(updatedTasks);
-      setSortedByTag(!sortedByTag);
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-    } else if (sortedByTag) {
-      sortByTimestamp();
-      setSortedByTag(false);
-    }
-  };
-
-  // const sortByTaskHandler = () => {
-  //   setSortedByDone(false);
-  //   setSortedByTag(false);
-  //   setSortedByDate(false);
-  //   if (!sortedByTask) {
-  //     const updatedTasks = [...tasks].sort((a, b) => {
-  //       if (a.text < b.text) {
-  //         return -1;
-  //       } else if (a.text > b.text) {
-  //         return 1;
-  //       } else {
-  //         return 0;
-  //       }
-  //     });
-  //     setTasks(updatedTasks);
-  //     setSortedByTask(!sortedByTask);
-  //     localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-  //   } else if (sortedByTask) {
-  //     sortByTimestamp();
-  //     setSortedByTask(false);
-  //   }
-  // };
 
   return (
     <div className="app">
       <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
-      {/* {sideBarIsShown && <SideBar TASKS={DUMMY_TASKS} LISTS={DUMMY_LISTS} />} */}
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
-        tagInputChangeHandler={tagInputChangeHandler}
-        addNewTaskHandler={addNewTaskHandler}
         addNewTaskOnEnterHandler={addNewTaskOnEnterHandler}
-        showCalendarHandler={showCalendarHandler}
+        addNewTaskHandler={addNewTaskHandler}
         handleDayClick={handleDayClick}
         selectedDay={selectedDay}
         enteredTask={enteredTask}
@@ -326,21 +286,19 @@ function App() {
       <TaskList
         markTaskAsDoneHandler={markTaskAsDoneHandler}
         removeTaskHandler={removeTaskHandler}
-        tasks={tasks}
+        tasks={sortedTasks}
         tags={tags}
         sortByTaskHandler={sortByTaskHandler}
-        sortedByTask={sortedByTask}
         sortByTagHandler={sortByTagHandler}
         sortedByTag={sortedByTag}
         sortByDateHandler={sortByDateHandler}
         sortedByDate={sortedByDate}
-        sortedByDone={sortedByDone}
         sortByDoneHandler={sortByDoneHandler}
         sortedBy={sortedBy}
-        setSortedBy={setSortedBy}
-        TEXT_SORT={TEXT_SORT}
-        ASC_SORT={ASC_SORT}
-        DESC_SORT={DESC_SORT}
+        setTasks={setTasks}
+        editTaskTextHandler={editTaskTextHandler}
+        editTaskDateHandler={editTaskDateHandler}
+        editTaskTagHandler={editTaskTagHandler}
       />
     </div>
   );

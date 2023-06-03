@@ -5,9 +5,6 @@
   align-items: space-around center;
   width: 60rem;
   gap: 3px;
-
-  /* border-bottom: 3px solid rgb(239, 239, 239); */
-  /* box-shadow: 1px 1px rgb(189, 189, 189); */
 }
 
 .task-bar:last-child {
@@ -30,7 +27,7 @@
   font-size: 0.95rem;
 }
 
-.tick {
+.done {
   width: 5rem;
   justify-content: center;
 }
@@ -38,6 +35,12 @@
 .text {
   width: 30rem;
   padding-left: 2rem;
+  border: none;
+  box-sizing: border-box;
+}
+
+.text:hover {
+  border: 2px solid #0288d1;
 }
 
 .no-date {
@@ -45,14 +48,19 @@
   color: rgb(112, 112, 112);
 }
 
-.task-bar--item.text.done {
+.done-task {
   position: relative;
   text-decoration: line-through;
 }
 
-.due-date {
+.date {
   width: 10rem;
   justify-content: center;
+  border: none;
+}
+
+.date:hover {
+  border: 2px solid #0288d1;
 }
 
 .tag {
@@ -63,9 +71,11 @@
 .tag-inner {
   background-color: rgb(178, 120, 175);
   padding: 0.25rem 0.6rem;
-  min-width: 5rem;
+  min-width: 4rem;
+  max-width: 6rem;
   text-align: center;
   border-radius: 1rem;
+  border: none;
 }
 
 .empty {
@@ -80,10 +90,59 @@
   width: 5rem;
 }
 
-[contentEditable]:focus {
-  outline: 2px solid #0288d1;
-}
-
 .past-date {
   color: rgb(181, 0, 0);
+}
+
+@media only screen and (max-width: 600px) {
+  .task-bar {
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    /* flex-direction: row;
+    justify-content: center;
+    align-items: space-around center; */
+    /* margin: auto; */
+    width: 100vw;
+    gap: 0;
+    margin: 0;
+    /* gap: 3px; */
+  }
+
+  .done {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .text {
+    grid-column-start: 2;
+    grid-column-end: 6;
+    width: 16rem;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .remove {
+    grid-column-start: 6;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .date {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .tag {
+    grid-column-start: 4;
+    grid-column-end: 7;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
 }

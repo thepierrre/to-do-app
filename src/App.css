@@ -2,7 +2,6 @@
 
 body,
 html {
-  /* background-image: linear-gradient(rgb(201, 238, 255), rgb(151, 222, 255)); */
   background-color: rgb(243, 243, 243);
   font-family: "Open Sans", sans-serif;
 }
@@ -12,11 +11,4 @@ html {
   flex-direction: column;
   height: 100vh;
   align-items: center;
-}
-
-.actions {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  width: 50%;
 }

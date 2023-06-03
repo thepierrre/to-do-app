@@ -8,3 +8,23 @@
   width: 25rem;
   margin-right: 1rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .new-task {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .new-task--input {
+    width: 100%;
+    text-align: center;
+  }
+
+  .new-task-tag--input {
+    width: 13.5rem;
+  }
+}

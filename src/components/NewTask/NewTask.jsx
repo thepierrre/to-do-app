@@ -15,6 +15,7 @@ const NewTask = (props) => {
     enteredTag,
     handleDayClick,
     selectedDay,
+    addNewTaskHandler,
   } = props;
 
   return (
@@ -25,8 +26,10 @@ const NewTask = (props) => {
           onKeyDown={addNewTaskOnEnterHandler}
           className="new-task--input"
           placeholder="New task"
+          inputProps={{ maxLength: 50 }}
           id="outlined-adornment-task"
           value={enteredTask}
+          maxLength="50"
           startAdornment={
             <InputAdornment position="start">
               <CalendarMenu
@@ -42,10 +45,12 @@ const NewTask = (props) => {
           onChange={tagInputChangeHandler}
           onKeyDown={addNewTaskOnEnterHandler}
           value={enteredTag}
+          inputProps={{ maxLength: 15 }}
+          className="new-task-tag--input"
           placeholder="Tag (optional)"
         />
       </FormControl>
-      <IconButton onClick={props.addNewTaskHandler}>
+      <IconButton onClick={addNewTaskHandler}>
         <AddCircleIcon fontSize="large" color="info" />
       </IconButton>
     </form>
