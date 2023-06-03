@@ -15,13 +15,12 @@ import {
   DATE_SORT,
   TEXT_SORT,
   TAG_SORT,
-} from "../../helpers/sortingFunctions";
+} from "../../utils/sortingFunctions";
 
 const TaskList = (props) => {
   const {
     tasks,
     removeTaskHandler,
-    tags,
     markTaskAsDoneHandler,
     sortByTaskHandler,
     sortByTagHandler,
@@ -44,7 +43,6 @@ const TaskList = (props) => {
       task={task}
       editedTask={editedTask}
       taskInputChangeHandler={taskInputChangeHandler}
-      tags={tags}
       setTasks={setTasks}
       editTaskTagHandler={(enteredTag) =>
         editTaskTagHandler(task.id, enteredTag)

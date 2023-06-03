@@ -12,13 +12,14 @@ import {
   ASC_SORT,
   getSortedTasks,
   DEFAULT_SORT,
-} from "./helpers/sortingFunctions.js";
+} from "./utils/sortingFunctions.js";
 
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 import Calendar from "./components/TaskList/Calendar";
 import "./App.css";
+import { getRandomColor } from "./utils/visualFunctions.js";
 
 const date = DateTime.local(2023, 6, 10);
 
@@ -105,16 +106,8 @@ function App() {
     setEnteredTask(event.target.value);
   };
 
-  const getRandomColor = () => {
-    return (
-      "hsl(" +
-      360 * Math.random() +
-      "," +
-      (25 + 70 * Math.random()) +
-      "%," +
-      (85 + 10 * Math.random()) +
-      "%)"
-    );
+  const tagInputChangeHandler = (event) => {
+    setEnteredTag(event.target.value);
   };
 
   const editTaskTextHandler = (taskId, enteredText) => {
@@ -154,36 +147,24 @@ function App() {
     });
   };
 
-  // const editTaskTagHandler = (taskId, enteredTag) => {
-  //   const color = getRandomColor();
-  //   setTasks((prevTasks) => {
-  //     const updatedTasks = prevTasks.map((task) => {
-  //       if (task.id === taskId) {
-  //         return { ...task, tag: enteredTag };
-  //       } else {
-  //         return task;
-  //       }
-  //     });
-  //     localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
-  //     return updatedTasks;
-  //   });
-  // };
-
   const editTaskTagHandler = (taskId, enteredTag) => {
-    const color = getRandomColor();
+    const color =
+      Object.values(tags).find((tag) => tag.text === enteredTag)?.color ??
+      getRandomColor();
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((task) => {
         if (task.id === taskId) {
-          if (enteredTag && !tags[enteredTag]) {
-            const newTags = { ...tags, [enteredTag]: { color } };
+          if (enteredTag) {
+            const { id: tagId } = task.tag;
+            const newTagValue = { ...task.tag, color, text: enteredTag };
+            const newTags = { ...tags, [tagId]: newTagValue };
             setTags(newTags);
             localStorage.setItem("tags", JSON.stringify(newTags));
             setTagColor(color);
-            return { ...task, tag: enteredTag };
+            return { ...task, tag: newTagValue };
           }
-        } else {
-          return task;
         }
+        return task;
       });
       localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
       return updatedTasks;
@@ -195,6 +176,16 @@ function App() {
   const addNewTaskHandler = (event) => {
     event.preventDefault();
     if (enteredTaskIsValid) {
+      const color =
+        Object.values(tags).find((tag) => tag.text === enteredTag)?.color ??
+        getRandomColor();
+      const newTag = enteredTag
+        ? {
+            id: uuidv4(),
+            text: enteredTag,
+            color,
+          }
+        : null;
       const newTask = {
         id: uuidv4(),
         text: enteredTask,
@@ -205,14 +196,13 @@ function App() {
               year: "numeric",
             })
           : "no date",
-        tag: enteredTag ? enteredTag : "no tag",
+        tag: newTag,
         timestamp: new Date(),
         isDone: false,
       };
 
-      const color = getRandomColor();
       if (enteredTag && !tags[enteredTag]) {
-        const newTags = { ...tags, [enteredTag]: { color } };
+        const newTags = { ...tags, [enteredTag]: newTag };
         setTags(newTags);
         localStorage.setItem("tags", JSON.stringify(newTags));
       }
@@ -275,6 +265,7 @@ function App() {
       <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
+        tagInputChangeHandler={tagInputChangeHandler}
         addNewTaskOnEnterHandler={addNewTaskOnEnterHandler}
         addNewTaskHandler={addNewTaskHandler}
         handleDayClick={handleDayClick}
@@ -287,7 +278,6 @@ function App() {
         markTaskAsDoneHandler={markTaskAsDoneHandler}
         removeTaskHandler={removeTaskHandler}
         tasks={sortedTasks}
-        tags={tags}
         sortByTaskHandler={sortByTaskHandler}
         sortByTagHandler={sortByTagHandler}
         sortedByTag={sortedByTag}

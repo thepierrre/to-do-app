@@ -11,28 +11,25 @@ const SingleTask = (props) => {
   const {
     removeTaskHandler,
     markTaskAsDoneHandler,
-    tags,
     editTaskTextHandler,
     editTaskDateHandler,
     editTaskTagHandler,
     task,
   } = props;
 
-  const { text, date, tag } = task;
+  const { text, date, tag, isDone } = task;
+  const tagColor = tag?.color;
+  const tagText = tag?.text;
 
-  const taskTextClassName = `task-bar--item text ${
-    props.isDone ? "done-task" : ""
-  }`;
+  const taskTextClassName = `task-bar--item text ${isDone ? "done-task" : ""}`;
 
   const taskDateClassName = `task-bar--item date ${
     date === "no date" ? "no-date" : ""
   }`;
 
   const taskTagInnerClassName = `tag-inner ${
-    tag === "" || tag === "no tag" ? "empty" : ""
+    tagText === "" || tagText === "no tag" ? "empty" : ""
   }`;
-
-  const color = tags[tag]?.color;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -77,19 +74,14 @@ const SingleTask = (props) => {
         </Menu>
       </div>
       <div className="task-bar--item tag">
-        {/* <div
-          className={taskTagInnerClassName}
-          contentEditable="true"
-          suppressContentEditableWarning={true}
-          style={{ backgroundColor: color }}
-        >
-          {tag}
-        </div> */}
         <input
           className={taskTagInnerClassName}
           onChange={(event) => editTaskTagHandler(event.target.value)}
-          style={{ backgroundColor: color }}
-          value={tag}
+          style={{
+            backgroundColor: tagColor ?? "transparent",
+            // color: task.tag.text ?? "black",
+          }}
+          value={tagText ?? "no tag"}
         />
       </div>
       <div className="task-bar--item button remove">
@@ -102,44 +94,3 @@ const SingleTask = (props) => {
 };
 
 export default SingleTask;
-
-//   return (
-//     <div className="task-bar">
-//       <div className="task-bar--item button tick">
-//         <IconButton onClick={markTaskAsDoneHandler}>
-//           <CheckCircleOutlineIcon />
-//         </IconButton>
-//       </div>
-//       <input
-//         onChange={(event) => editTaskTextHandler(event.target.innerText)}
-//         className={taskTextClassName}
-//         value={text}
-//       >
-//         {/* {text} */}
-//       </input>
-//       <div className={taskDateClassName}>
-//         {new Date(date) < new Date() && (
-//           <PriorityHighIcon fontSize="small" color="error" />
-//         )}
-//         <span>{date}</span>
-//       </div>
-//       <div className="task-bar--item tag">
-//         <div
-//           className={taskTagInnerClassName}
-//           contentEditable="true"
-//           suppressContentEditableWarning={true}
-//           style={{ backgroundColor: color }}
-//         >
-//           {tag}
-//         </div>
-//       </div>
-//       <div className="task-bar--item button remove">
-//         <IconButton onClick={removeTaskHandler}>
-//           <DeleteOutlineIcon />
-//         </IconButton>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SingleTask;
