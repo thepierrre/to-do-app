@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-
 import { v4 as uuidv4 } from "uuid";
-
 import {
   TEXT_SORT,
   DATE_SORT,
@@ -14,7 +12,6 @@ import {
   DEFAULT_SORT,
 } from "./utils/sortingFunctions.js";
 import { DUMMY_TASKS } from "./utils/dummyTasks";
-
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
@@ -40,11 +37,6 @@ function App() {
   const [enteredTag, setEnteredTag] = useState("");
   const [tagColor, setTagColor] = useState(undefined);
   const [tags, setTags] = useState({});
-  const [sortedByDone, setSortedByDone] = useState(false);
-  const [sortedByTask, setSortedByTask] = useState(false);
-  const [sortedByDate, setSortedByDate] = useState(false);
-  const [sortedByTag, setSortedByTag] = useState(false);
-
   const [sortedBy, setSortedBy] = useState(DEFAULT_SORT);
 
   useEffect(() => {
@@ -330,9 +322,7 @@ function App() {
         tasks={sortedTasks}
         sortByTaskHandler={sortByTaskHandler}
         sortByTagHandler={sortByTagHandler}
-        sortedByTag={sortedByTag}
         sortByDateHandler={sortByDateHandler}
-        sortedByDate={sortedByDate}
         sortByDoneHandler={sortByDoneHandler}
         sortedBy={sortedBy}
         setTasks={setTasks}

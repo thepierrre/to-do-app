@@ -1,8 +1,5 @@
-import { PropaneSharp } from "@mui/icons-material";
-import NewTask from "../NewTask/NewTask";
 import SingleTask from "./SingleTask";
 import "./TaskList.css";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -26,8 +23,6 @@ const TaskList = (props) => {
     sortByTagHandler,
     sortByDateHandler,
     sortByDoneHandler,
-    sortedByTag,
-    sortedByDate,
     sortedBy,
     setTasks,
     editTaskTextHandler,
@@ -114,16 +109,20 @@ const TaskList = (props) => {
           <span className="label label-date">
             <p className={labelDateInternalClass}>Due date</p>
             <IconButton className="filter-button" onClick={sortByDateHandler}>
-              {!sortedByDate && <UnfoldMoreIcon />}
-              {sortedByDate && <ArrowDropUpIcon color="primary" />}
+              {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
+              {sortedBy.feature === DATE_SORT && (
+                <ArrowDropUpIcon color="primary" />
+              )}
             </IconButton>
           </span>
 
           <span className="label label-tag">
             <p className={labelTagInternalClass}>Tag</p>
             <IconButton className="filter-button" onClick={sortByTagHandler}>
-              {!sortedByTag && <UnfoldMoreIcon />}
-              {sortedByTag && <ArrowDropUpIcon color="primary" />}
+              {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
+              {sortedBy.feature === TAG_SORT && (
+                <ArrowDropUpIcon color="primary" />
+              )}
             </IconButton>
           </span>
           <span className="label label-remove">
