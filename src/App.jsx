@@ -13,6 +13,7 @@ import {
   getSortedTasks,
   DEFAULT_SORT,
 } from "./utils/sortingFunctions.js";
+import { DUMMY_TASKS } from "./utils/dummyTasks";
 
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
@@ -31,7 +32,7 @@ export const formattedDate = date.toLocaleString({
 
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(DUMMY_TASKS);
   const [sortedTasks, setSortedTasks] = useState(tasks);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
   const [sideBarIsShown, setSideBarIsShown] = useState(false);
@@ -119,7 +120,15 @@ function App() {
           return task;
         }
       });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify([
+          ...updatedTasks.map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          })),
+        ])
+      );
       return updatedTasks;
     });
   };
@@ -130,19 +139,21 @@ function App() {
         if (task.id === taskId) {
           return {
             ...task,
-            date: enteredDate
-              ? enteredDate.toLocaleDateString("en-UK", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })
-              : "no date",
+            date: enteredDate,
           };
         } else {
           return task;
         }
       });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify([
+          ...updatedTasks.map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          })),
+        ])
+      );
       return updatedTasks;
     });
   };
@@ -155,8 +166,13 @@ function App() {
       const updatedTasks = prevTasks.map((task) => {
         if (task.id === taskId) {
           if (enteredTag) {
-            const { id: tagId } = task.tag;
-            const newTagValue = { ...task.tag, color, text: enteredTag };
+            let tagId;
+            if (task.tag) {
+              tagId = task.tag.id;
+            } else {
+              tagId = uuidv4();
+            }
+            const newTagValue = { id: tagId, color, text: enteredTag };
             const newTags = { ...tags, [tagId]: newTagValue };
             setTags(newTags);
             localStorage.setItem("tags", JSON.stringify(newTags));
@@ -166,7 +182,15 @@ function App() {
         }
         return task;
       });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify([
+          ...updatedTasks.map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          })),
+        ])
+      );
       return updatedTasks;
     });
   };
@@ -189,13 +213,7 @@ function App() {
       const newTask = {
         id: uuidv4(),
         text: enteredTask,
-        date: selectedDay
-          ? selectedDay.toLocaleDateString("en-UK", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })
-          : "no date",
+        date: selectedDay,
         tag: newTag,
         timestamp: new Date(),
         isDone: false,
@@ -210,7 +228,15 @@ function App() {
 
       setTasks((prevTasks) => [newTask, ...prevTasks]);
 
-      localStorage.setItem("tasks", JSON.stringify([newTask, ...tasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify(
+          [newTask, ...tasks].map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          }))
+        )
+      );
 
       setEnteredTask("");
       setEnteredTag("");
@@ -232,7 +258,15 @@ function App() {
           return task;
         }
       });
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify([
+          ...updatedTasks.map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          })),
+        ])
+      );
       return updatedTasks;
     });
   };
@@ -240,7 +274,15 @@ function App() {
   const removeTaskHandler = (taskId) => {
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-      localStorage.setItem("tasks", JSON.stringify([...updatedTasks]));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify([
+          ...updatedTasks.map((task) => ({
+            ...task,
+            tag: JSON.stringify(task.tag),
+          })),
+        ])
+      );
       return updatedTasks;
     });
   };
@@ -250,11 +292,19 @@ function App() {
   };
 
   useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks", JSON.stringify(tasks));
+    const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
+      setTasks(
+        JSON.parse(storedTasks).map((task) => {
+          return {
+            ...task,
+            date: task.date ? new Date(task.date) : null,
+            tag: task.tag ? JSON.parse(task.tag) : null,
+          };
+        })
+      );
     }
-    const storedTags = localStorage.getItem("tags", JSON.stringify(tags));
+    const storedTags = localStorage.getItem("tags");
     if (storedTags) {
       setTags(JSON.parse(storedTags));
     }

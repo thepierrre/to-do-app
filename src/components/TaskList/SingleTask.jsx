@@ -23,9 +23,7 @@ const SingleTask = (props) => {
 
   const taskTextClassName = `task-bar--item text ${isDone ? "done-task" : ""}`;
 
-  const taskDateClassName = `task-bar--item date ${
-    date === "no date" ? "no-date" : ""
-  }`;
+  const taskDateClassName = `task-bar--item date ${date ? "" : "no-date"}`;
 
   const taskTagInnerClassName = `tag-inner ${
     tagText === "" || tagText === "no tag" ? "empty" : ""
@@ -44,50 +42,61 @@ const SingleTask = (props) => {
   };
 
   return (
-    <div className="task-bar">
-      <div className="task-bar--item done">
-        <IconButton onClick={markTaskAsDoneHandler}>
-          <CheckCircleOutlineIcon />
-        </IconButton>
-      </div>
-      <input
-        onChange={(event) => editTaskTextHandler(event.target.value)}
-        className={taskTextClassName}
-        value={text}
-      ></input>
-      <div>
-        <button className={taskDateClassName} onClick={handleClick}>
-          {new Date(date) < new Date() && (
-            <PriorityHighIcon fontSize="small" color="error" />
-          )}
-          <span>{date}</span>
-        </button>
-        <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-          <DayPicker
-            mode="single"
-            selected={new Date(date)}
-            onSelect={(selectedDate) => {
-              editTaskDateHandler(selectedDate);
-              handleClose();
-            }}
-          />
-        </Menu>
-      </div>
-      <div className="task-bar--item tag">
+    <div className="task-bar-container">
+      <div className="task-bar">
+        <div className="task-bar--item done">
+          <IconButton onClick={markTaskAsDoneHandler}>
+            <CheckCircleOutlineIcon />
+          </IconButton>
+        </div>
         <input
-          className={taskTagInnerClassName}
-          onChange={(event) => editTaskTagHandler(event.target.value)}
-          style={{
-            backgroundColor: tagColor ?? "transparent",
-            // color: task.tag.text ?? "black",
-          }}
-          value={tagText ?? "no tag"}
-        />
-      </div>
-      <div className="task-bar--item button remove">
-        <IconButton onClick={removeTaskHandler}>
-          <DeleteOutlineIcon />
-        </IconButton>
+          onChange={(event) => editTaskTextHandler(event.target.value)}
+          className={taskTextClassName}
+          value={text}
+        ></input>
+        <div>
+          <button className={taskDateClassName} onClick={handleClick}>
+            {date && new Date(date) < new Date() && (
+              <PriorityHighIcon fontSize="small" color="error" />
+            )}
+            <span>
+              {date
+                ? date.toLocaleDateString("en-UK", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })
+                : "no date"}
+            </span>
+          </button>
+          <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <DayPicker
+              mode="single"
+              selected={new Date(date)}
+              onSelect={(selectedDate) => {
+                editTaskDateHandler(selectedDate);
+                handleClose();
+              }}
+            />
+          </Menu>
+        </div>
+        <div className="task-bar--item tag">
+          <input
+            className={taskTagInnerClassName}
+            onChange={(event) => editTaskTagHandler(event.target.value)}
+            style={{
+              backgroundColor: tagColor ?? "transparent",
+              // color: task.tag.text ?? "black",
+            }}
+            value={tagText}
+            placeholder="no tag"
+          />
+        </div>
+        <div className="task-bar--item button remove">
+          <IconButton onClick={removeTaskHandler}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </div>
       </div>
     </div>
   );

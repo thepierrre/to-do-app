@@ -1,3 +1,25 @@
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: space-around center;
+  margin-bottom: 5rem;
+}
+
+.empty {
+  font-size: 1.1rem;
+  color: rgb(41, 41, 41);
+}
+
+.labels {
+  display: flex;
+  flex-direction: row;
+  width: 60rem;
+  gap: 3px;
+  justify-content: center;
+  align-items: space-around center;
+}
+
 .label {
   margin: 0;
   text-align: center;
@@ -36,24 +58,18 @@
   width: 5rem;
 }
 
-.labels {
-  display: flex;
-  flex-direction: row;
-  width: 60rem;
-  gap: 3px;
-  justify-content: center;
-  align-items: space-around center;
-}
-
-.tasks-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  align-items: space-around center;
-  margin-bottom: 5rem;
-}
-
 @media only screen and (max-width: 600px) {
+  .tasks-list {
+    position: relative;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 3rem;
+  }
+
+  .empty {
+    text-align: center;
+  }
+
   .labels {
     display: none;
   }
