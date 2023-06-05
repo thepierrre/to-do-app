@@ -1,4 +1,4 @@
-# To do app
+# To-do app
 
 Click [here](https://piotr-to-do-app.netlify.app) to visit the app deployed on Netlify.
 
@@ -73,11 +73,11 @@ The users can also filter the tasks using four different filters displayed just 
 
 - **Sort by done:** The tasks can be sorted by displaying the asks that still have to be done first or by showing the done ones first.
 
-- **Sort by task text:**The tasks can be sorted alphabetically in ascending (starting from A) or descending (starting from Z) order.
+- **Sort by task text:** The tasks can be sorted alphabetically in ascending (starting from A) or descending (starting from Z) order.
 
-- **Sort by date:**The tasks can be sorted by ascending (starting from the oldest) or descending (starting from the latest) date.
+- **Sort by date:** The tasks can be sorted by ascending (starting from the oldest) or descending (starting from the latest) date.
 
-- **Sort by tags:**Just like with sorting by task text, the tasks can be also sorted alphabetically by tags in ascending or descending order.
+- **Sort by tags:** Just like with sorting by task text, the tasks can be also sorted alphabetically by tags in ascending or descending order.
 
 ## Further plans
 
