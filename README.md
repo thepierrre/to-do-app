@@ -93,3 +93,11 @@ In the current state, the app gives the user the possibility to add tasks to a s
 the possibility to add their own lists for better management of tasks and using the app on a bigger scale.
 The individual tasks list will be displayed in a bar on the left that can be dynamically displayed and hidden by clicking on a button next to
 the list's title (currently hardcoded as "My tasks").
+
+### Improving the mobile version
+
+In its current version, the app has a mobile version designed by using CSS media queries, but it doesn't use the mobile first approach yet, which is another important thing that I want to further work on.
+
+### More efficient state management
+
+Right now, the app uses the useState hook for state management and props to pass the state down to child components. However, as the app has started to grow, I have noticed that this is not necessarily the best way to manage its state. For this reason, I would like to implement the useContext hook or Redux to manage the app's state more efficiently.
