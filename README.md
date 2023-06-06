@@ -1,6 +1,6 @@
 # To-do app
 
-Click [here](https://piotr-to-do-app.netlify.app) to visit the app deployed on Netlify.
+Click [here](https://piotr-to-do-app.netlify.app) to visit the app deployed with Netlify.
 
 ## Contents
 
