@@ -79,6 +79,10 @@
   border: none;
 }
 
+.tag-inner:hover {
+  border: 2px solid #0288d1;
+}
+
 .empty {
   background-color: transparent;
   padding: 0;
