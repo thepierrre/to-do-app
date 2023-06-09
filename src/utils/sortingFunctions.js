@@ -77,7 +77,7 @@ const sortByDateAsc = (tasks) => {
       return -1;
     } else if (a.date === null && b.date !== null) {
       return 1;
-    } else if (a.date === null ^^ b.date === null) {
+    } else if (a.date === null && b.date === null) {
       return 0;
     } else if (new Date(a.date) < new Date(b.date)) {
       return -1;
