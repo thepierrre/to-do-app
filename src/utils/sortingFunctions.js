@@ -73,7 +73,13 @@ const sortByTextDesc = (tasks) => {
 
 const sortByDateAsc = (tasks) => {
   return [...tasks].sort((a, b) => {
-    if (new Date(a.date) < new Date(b.date)) {
+    if (a.date !== null && b.date === null) {
+      return -1;
+    } else if (a.date === null && b.date !== null) {
+      return 1;
+    } else if (a.date === null ^^ b.date === null) {
+      return 0;
+    } else if (new Date(a.date) < new Date(b.date)) {
       return -1;
     } else if (new Date(a.date) > new Date(b.date)) {
       return 1;
