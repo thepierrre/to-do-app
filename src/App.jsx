@@ -17,7 +17,6 @@ import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 import Calendar from "./components/TaskList/Calendar";
 import "./App.css";
-import { getRandomColor } from "./utils/visualFunctions.js";
 
 const date = DateTime.local(2023, 6, 10);
 
@@ -29,15 +28,14 @@ export const formattedDate = date.toLocaleString({
 
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
-  const [tasks, setTasks] = useState(DUMMY_TASKS);
-  const [sortedTasks, setSortedTasks] = useState(tasks);
+  const [tasks, setTasks] = useState([]);
+  const [sortedTasks, setSortedTasks] = useState([]);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
-  const [sideBarIsShown, setSideBarIsShown] = useState(false);
+  const [enteredMenuInputTag, setEnteredMenuInputTag] = useState("");
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [enteredTag, setEnteredTag] = useState("");
-  const [tagColor, setTagColor] = useState(undefined);
-  const [tags, setTags] = useState({});
   const [sortedBy, setSortedBy] = useState(DEFAULT_SORT);
+  const [tags, setTags] = useState(["Household", "Running"]);
 
   useEffect(() => {
     setSortedTasks(getSortedTasks(tasks, sortedBy));
@@ -103,6 +101,11 @@ function App() {
     setEnteredTag(event.target.value);
   };
 
+  const menuTagInputChangeHandler = (event) => {
+    event.stopPropagation();
+    setEnteredMenuInputTag(event.target.value);
+  };
+
   const editTaskTextHandler = (taskId, enteredText) => {
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((task) => {
@@ -112,15 +115,7 @@ function App() {
           return task;
         }
       });
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify([
-          ...updatedTasks.map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          })),
-        ])
-      );
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return updatedTasks;
     });
   };
@@ -137,107 +132,72 @@ function App() {
           return task;
         }
       });
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify([
-          ...updatedTasks.map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          })),
-        ])
-      );
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return updatedTasks;
     });
   };
 
   const editTaskTagHandler = (taskId, enteredTag) => {
-    const color =
-      Object.values(tags).find((tag) => tag.text === enteredTag)?.color ??
-      getRandomColor();
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((task) => {
         if (task.id === taskId) {
-          if (enteredTag) {
-            let tagId;
-            if (task.tag) {
-              tagId = task.tag.id;
-            } else {
-              tagId = uuidv4();
-            }
-            const newTagValue = { id: tagId, color, text: enteredTag };
-            const newTags = { ...tags, [tagId]: newTagValue };
-            setTags(newTags);
-            localStorage.setItem("tags", JSON.stringify(newTags));
-            setTagColor(color);
-            return { ...task, tag: newTagValue };
-          }
+          return { ...task, tag: enteredTag };
+        } else {
+          return task;
         }
-        return task;
       });
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify([
-          ...updatedTasks.map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          })),
-        ])
-      );
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return updatedTasks;
     });
   };
 
   const enteredTaskIsValid = enteredTask.trim().length !== 0;
 
+  const addNewTagHandler = (event) => {
+    event.preventDefault();
+    if (enteredTag) {
+      if (!tags.includes(enteredTag)) {
+        setTags((prevTags) => [enteredTag, ...prevTags]);
+      }
+    }
+  };
+
+  const addNewTagFromMenuHandler = (event) => {
+    event.preventDefault();
+    if (enteredMenuInputTag) {
+      if (!tags.includes(enteredMenuInputTag)) {
+        setTags((prevTags) => [enteredMenuInputTag, ...prevTags]);
+      }
+    }
+    setEnteredMenuInputTag("");
+  };
+
   const addNewTaskHandler = (event) => {
     event.preventDefault();
     if (enteredTaskIsValid) {
-      const color =
-        Object.values(tags).find((tag) => tag.text === enteredTag)?.color ??
-        getRandomColor();
-      const newTag = enteredTag
-        ? {
-            id: uuidv4(),
-            text: enteredTag,
-            color,
-          }
-        : null;
       const newTask = {
         id: uuidv4(),
         text: enteredTask,
         date: selectedDay,
-        tag: newTag,
+        tag: enteredTag,
         timestamp: new Date(),
         isDone: false,
       };
 
-      if (enteredTag && !tags[enteredTag]) {
-        const newTags = { ...tags, [enteredTag]: newTag };
-        setTags(newTags);
-        localStorage.setItem("tags", JSON.stringify(newTags));
-      }
-      setTagColor(color);
-
       setTasks((prevTasks) => [newTask, ...prevTasks]);
-
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify(
-          [newTask, ...tasks].map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          }))
-        )
-      );
-
       setEnteredTask("");
       setEnteredTag("");
+
+      const updatedTasks = [newTask, ...tasks];
+
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
 
   const addNewTaskOnEnterHandler = (event) => {
     if (event.key === "Enter") {
       addNewTaskHandler(event);
+      addNewTagHandler(event);
     }
   };
 
@@ -250,15 +210,7 @@ function App() {
           return task;
         }
       });
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify([
-          ...updatedTasks.map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          })),
-        ])
-      );
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return updatedTasks;
     });
   };
@@ -266,45 +218,24 @@ function App() {
   const removeTaskHandler = (taskId) => {
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify([
-          ...updatedTasks.map((task) => ({
-            ...task,
-            tag: JSON.stringify(task.tag),
-          })),
-        ])
-      );
+
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
       return updatedTasks;
     });
-  };
-
-  const toggleSideBar = () => {
-    setSideBarIsShown(!sideBarIsShown);
   };
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
-      setTasks(
-        JSON.parse(storedTasks).map((task) => {
-          return {
-            ...task,
-            date: task.date ? new Date(task.date) : null,
-            tag: task.tag ? JSON.parse(task.tag) : null,
-          };
-        })
-      );
-    }
-    const storedTags = localStorage.getItem("tags");
-    if (storedTags) {
-      setTags(JSON.parse(storedTags));
+      const parsedTasks = JSON.parse(storedTasks);
+      setTasks(storedTasks);
     }
   }, []);
 
   return (
     <div className="app">
-      <Header toggleSideBar={toggleSideBar} sideBarIsShown={sideBarIsShown} />
+      <Header />
       <NewTask
         taskInputChangeHandler={taskInputChangeHandler}
         tagInputChangeHandler={tagInputChangeHandler}
@@ -314,6 +245,14 @@ function App() {
         selectedDay={selectedDay}
         enteredTask={enteredTask}
         enteredTag={enteredTag}
+        setEnteredTag={setEnteredTag}
+        tags={tags}
+        setTags={setTags}
+        addNewTagHandler={addNewTagHandler}
+        menuTagInputChangeHandler={menuTagInputChangeHandler}
+        enteredMenuInputTag={enteredMenuInputTag}
+        setEnteredMenuInputTag={setEnteredMenuInputTag}
+        addNewTagFromMenuHandler={addNewTagFromMenuHandler}
       />
       {calendarIsShown && <Calendar />}
       <TaskList
