@@ -58,3 +58,5 @@ export const DUMMY_TASKS = [
     isDone: false,
   },
 ];
+
+export const DUMMY_TAGS = ["Sports", "Others", "Cooking"];

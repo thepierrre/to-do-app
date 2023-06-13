@@ -2,6 +2,7 @@ import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
+import "./TagMenu.css";
 import Input from "@mui/material/Input";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,15 +13,9 @@ const ITEM_HEIGHT = 48;
 
 const TagMenu = (props) => {
   const {
-    tagListChangeHandler,
-    tagMenuInputChangeHandler,
-    tagOptions,
-    addNewTagToMenuOnEnterHandler,
     tags,
-    setTags,
     menuTagInputChangeHandler,
-    EnteredMenuInputTag,
-    setEnteredMenuInpuTag,
+    enteredMenuInputTag,
     addNewTagFromMenuHandler,
     setEnteredTag,
   } = props;
@@ -37,9 +32,11 @@ const TagMenu = (props) => {
     setAnchorEl(null);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedTag(option);
-    handleClose();
+  const onKeyDown = (event) => {
+    event.stopPropagation();
+    if (event.key === "Enter") {
+      addNewTagFromMenuHandler(event);
+    }
   };
 
   return (
@@ -55,7 +52,7 @@ const TagMenu = (props) => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
+            width: "22ch",
           },
         }}
       >
@@ -68,9 +65,12 @@ const TagMenu = (props) => {
           type="text"
           placeholder="New tag"
           onChange={menuTagInputChangeHandler}
+          onKeyDown={onKeyDown}
+          className="tag-menu-input"
+          value={enteredMenuInputTag}
         />
         <IconButton onClick={addNewTagFromMenuHandler}>
-          <AddCircleIcon />
+          <AddCircleIcon color="info" />
         </IconButton>
       </Menu>
     </div>

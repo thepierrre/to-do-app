@@ -11,7 +11,7 @@ import {
   getSortedTasks,
   DEFAULT_SORT,
 } from "./utils/sortingFunctions.js";
-import { DUMMY_TASKS } from "./utils/dummyTasks";
+import { DUMMY_TASKS, DUMMY_TAGS } from "./utils/dummyTasks";
 import Header from "./components/Layout/Header";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
@@ -28,14 +28,14 @@ export const formattedDate = date.toLocaleString({
 
 function App() {
   const [enteredTask, setEnteredTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(DUMMY_TASKS);
   const [sortedTasks, setSortedTasks] = useState([]);
   const [calendarIsShown, setCalendarIsShown] = useState(false);
   const [enteredMenuInputTag, setEnteredMenuInputTag] = useState("");
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [enteredTag, setEnteredTag] = useState("");
   const [sortedBy, setSortedBy] = useState(DEFAULT_SORT);
-  const [tags, setTags] = useState(["Household", "Running"]);
+  const [tags, setTags] = useState(DUMMY_TAGS);
 
   useEffect(() => {
     setSortedTasks(getSortedTasks(tasks, sortedBy));
@@ -162,11 +162,25 @@ function App() {
     }
   };
 
+  // const addNewTagFromMenuHandler = (event) => {
+  //   event.preventDefault();
+  //   if (enteredMenuInputTag) {
+  //     if (!tags.includes(enteredMenuInputTag)) {
+  //       setTags((prevTags) => [enteredMenuInputTag, ...prevTags]);
+  //       const updatedTags = [enteredMenuInputTag, ...tags];
+  //     }
+  //   }
+  //   localStorage.setItem("tags", JSON.stringify(updatedTags));
+  //   setEnteredMenuInputTag("");
+  // };
+
   const addNewTagFromMenuHandler = (event) => {
     event.preventDefault();
     if (enteredMenuInputTag) {
       if (!tags.includes(enteredMenuInputTag)) {
-        setTags((prevTags) => [enteredMenuInputTag, ...prevTags]);
+        const updatedTags = [enteredMenuInputTag, ...tags];
+        setTags(updatedTags);
+        localStorage.setItem("tags", JSON.stringify(updatedTags));
       }
     }
     setEnteredMenuInputTag("");
@@ -227,9 +241,14 @@ function App() {
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
+    const storedTags = localStorage.getItem("tags");
     if (storedTasks) {
       const parsedTasks = JSON.parse(storedTasks);
-      setTasks(storedTasks);
+      setTasks(parsedTasks);
+    }
+    if (storedTags) {
+      const parsedTags = JSON.parse(storedTags);
+      setTags(parsedTags);
     }
   }, []);
 

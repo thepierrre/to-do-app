@@ -25,10 +25,6 @@ const SingleTask = (props) => {
 
   const taskDateClassName = `task-bar--item date ${date ? "" : "no-date"}`;
 
-  // const taskTagInnerClassName = `tag-inner ${
-  //   tag === "" || tag === "no tag" ? "empty" : ""
-  // }`;
-
   const taskTagInnerClassName = `tag-inner ${tag ? "" : "empty"}`;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -63,7 +59,7 @@ const SingleTask = (props) => {
             )}
             <span>
               {date
-                ? date.toLocaleDateString("en-UK", {
+                ? new Date(date).toLocaleDateString("en-UK", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",

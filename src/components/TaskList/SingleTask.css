@@ -24,7 +24,7 @@
   align-items: center;
   background-color: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .done {
@@ -66,10 +66,10 @@
 .tag {
   width: 10rem;
   justify-content: center;
+  font-size: 0.9rem;
 }
 
 .tag-inner {
-  background-color: rgb(195, 236, 246);
   padding: 0.25rem 0.6rem;
   min-width: 4rem;
   max-width: 6rem;
@@ -84,8 +84,7 @@
 }
 
 .empty {
-  background-color: transparent;
-  padding: 0;
+  padding: 0.25rem;
   font-size: 0.9rem;
   color: rgb(112, 112, 112);
 }
