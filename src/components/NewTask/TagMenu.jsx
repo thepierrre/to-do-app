@@ -56,11 +56,6 @@ const TagMenu = (props) => {
           },
         }}
       >
-        {tags.map((tag) => (
-          <MenuItem key={tag} onClick={() => setEnteredTag(tag)}>
-            {tag}
-          </MenuItem>
-        ))}
         <Input
           type="text"
           placeholder="New tag"
@@ -72,6 +67,11 @@ const TagMenu = (props) => {
         <IconButton onClick={addNewTagFromMenuHandler}>
           <AddCircleIcon color="info" />
         </IconButton>
+        {tags.map((tag) => (
+          <MenuItem key={tag} onClick={() => setEnteredTag(tag)}>
+            {tag}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
