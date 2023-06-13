@@ -110,9 +110,14 @@ const TaskList = (props) => {
             <p className={labelDateInternalClass}>Due date</p>
             <IconButton className="filter-button" onClick={sortByDateHandler}>
               {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === DATE_SORT && (
-                <ArrowDropUpIcon color="primary" />
-              )}
+              {sortedBy.feature === DATE_SORT &&
+                sortedBy.direction === ASC_SORT && (
+                  <KeyboardArrowUpIcon color="primary" />
+                )}
+              {sortedBy.feature === DATE_SORT &&
+                sortedBy.direction === DESC_SORT && (
+                  <KeyboardArrowDownIcon color="primary" />
+                )}
             </IconButton>
           </span>
 
@@ -120,9 +125,14 @@ const TaskList = (props) => {
             <p className={labelTagInternalClass}>Tag</p>
             <IconButton className="filter-button" onClick={sortByTagHandler}>
               {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === TAG_SORT && (
-                <ArrowDropUpIcon color="primary" />
-              )}
+              {sortedBy.feature === TAG_SORT &&
+                sortedBy.direction === ASC_SORT && (
+                  <KeyboardArrowUpIcon color="primary" />
+                )}
+              {sortedBy.feature === TAG_SORT &&
+                sortedBy.direction === DESC_SORT && (
+                  <KeyboardArrowDownIcon color="primary" />
+                )}
             </IconButton>
           </span>
           <span className="label label-remove">

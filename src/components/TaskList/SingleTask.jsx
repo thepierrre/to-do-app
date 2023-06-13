@@ -25,9 +25,7 @@ const SingleTask = (props) => {
 
   const taskDateClassName = `task-bar--item date ${date ? "" : "no-date"}`;
 
-  const taskTagInnerClassName = `tag-inner ${
-    tagText === "" || tagText === "no tag" ? "empty" : ""
-  }`;
+  const taskTagInnerClassName = `tag-inner ${tag ? "" : "empty"}`;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -61,7 +59,7 @@ const SingleTask = (props) => {
             )}
             <span>
               {date
-                ? date.toLocaleDateString("en-UK", {
+                ? new Date(date).toLocaleDateString("en-UK", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
@@ -84,11 +82,7 @@ const SingleTask = (props) => {
           <input
             className={taskTagInnerClassName}
             onChange={(event) => editTaskTagHandler(event.target.value)}
-            style={{
-              backgroundColor: tagColor ?? "transparent",
-              // color: task.tag.text ?? "black",
-            }}
-            value={tagText}
+            value={tag}
             placeholder="no tag"
           />
         </div>

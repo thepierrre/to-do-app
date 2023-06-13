@@ -36,10 +36,13 @@ The app has a number of features that let the user modify the task even after it
 
 ### Add a new task
 
-The top part of the app includes an input field for a new task. At this point, the user can click on a calendar icon to select
+The top part of the app includes an input field for a new task.
+
+Here, the user can click on a calendar icon to select
 a specific date for the task completion. The date can lie either in the future or in the past (the latter connects to how a task is
-displated in the list, see the following section). Apart from the task text, a user can also choose a tag in order to group together
-tasks from the same category.
+displated in the list, see the following section).
+
+Apart from the task text, a user can also choose a tag in order to group together tasks from the same category. By clicking on the three dots next to the tag input field, the user can choose a tag from a list of already existing tag as well as add a new one to the list. If the user adds a new task with a tag that doesn't exist yet, it is automatically added to the list.
 
 ### Task management
 
@@ -61,7 +64,6 @@ and edit it freely. If the task's due date lies in the past, the user sees a red
 #### Tag
 
 Similarly to date, if the tag field is empty, the caption "no tag" is displayed. It can also be edited at any point by clicking on it.
-For better orientation, the same tags have the same background pastel color randomly generated each time a new tag is added.
 
 #### Bin
 
