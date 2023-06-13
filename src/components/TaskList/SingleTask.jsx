@@ -44,7 +44,7 @@ const SingleTask = (props) => {
       <div className="task-bar">
         <div className="task-bar--item done">
           <IconButton onClick={markTaskAsDoneHandler}>
-            <CheckCircleOutlineIcon />
+            <CheckCircleOutlineIcon color="primary" />
           </IconButton>
         </div>
         <input
@@ -87,7 +87,7 @@ const SingleTask = (props) => {
           />
         </div>
         <div className="task-bar--item button remove">
-          <IconButton onClick={removeTaskHandler}>
+          <IconButton onClick={removeTaskHandler} color="primary">
             <DeleteOutlineIcon />
           </IconButton>
         </div>
