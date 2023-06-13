@@ -82,7 +82,7 @@ const SingleTask = (props) => {
           <input
             className={taskTagInnerClassName}
             onChange={(event) => editTaskTagHandler(event.target.value)}
-            value={tag}
+            value={tag || ""}
             placeholder="no tag"
           />
         </div>
