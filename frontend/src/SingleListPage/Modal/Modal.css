@@ -1,0 +1,7 @@
+.edit-modal {
+  position: absolute;
+  z-index: 10;
+  width: 10rem;
+  height: rem;
+  background-color: white;
+}

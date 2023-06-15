@@ -1,0 +1,126 @@
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 3px;
+  align-items: space-around center;
+  margin-bottom: 5rem;
+}
+
+.empty {
+  font-size: 0.9rem;
+  color: rgb(41, 41, 41);
+}
+
+.labels {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  gap: 3px;
+  justify-content: center;
+  align-items: space-around center;
+}
+
+.label {
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sort {
+  color: #0288d1;
+}
+
+.label-done {
+  width: 10%;
+}
+
+.label-done.filter-button {
+  margin: 0;
+}
+
+.label-text {
+  width: 30%;
+}
+
+.label-date {
+  width: 10rem;
+}
+
+.label-tag {
+  width: 10rem;
+}
+
+.label-remove {
+  width: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+  .tasks-list {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 3px;
+    margin-bottom: 3rem;
+  }
+
+  .tasks-list-empty {
+    text-align: center;
+  }
+
+  .labels {
+    display: none;
+  }
+
+  .label-done,
+  .label-remove {
+    width: 3.5rem;
+  }
+
+  .label-text {
+    width: 18rem;
+  }
+
+  .label-date,
+  .label-tag {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+  .label-text {
+    width: 14.5rem;
+  }
+
+  .label-tag {
+    width: 8rem;
+  }
+
+  .label-done {
+    width: 3rem;
+  }
+
+  .label-remove {
+    width: 3rem;
+  }
+
+  .label-date {
+    width: 8rem;
+  }
+}
+
+@media only screen and (min-width: 1051px) {
+  .label-text {
+    width: 38%;
+  }
+
+  .label-done,
+  .label-remove {
+    width: 7%;
+  }
+}
