@@ -33,6 +33,11 @@ const NewTask = (props) => {
     addNewTagFromMenuHandler,
   } = props;
 
+  const handleAddButton = (event) => {
+    addNewTaskHandler(event);
+    addNewTagHandler(event);
+  };
+
   return (
     <form className="new-task">
       <FormControl>
@@ -83,7 +88,7 @@ const NewTask = (props) => {
           }
         />
       </FormControl>
-      <IconButton onClick={(addNewTaskHandler, addNewTagHandler)}>
+      <IconButton onClick={handleAddButton}>
         <AddCircleIcon fontSize="large" color="info" />
       </IconButton>
     </form>
