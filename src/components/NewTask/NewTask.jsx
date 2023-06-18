@@ -33,9 +33,9 @@ const NewTask = (props) => {
     addNewTagFromMenuHandler,
   } = props;
 
-  const handleAddButton = () => {
-    addNewTaskHandler();
-    addNewTagHandler;
+  const handleAddButton = (event) => {
+    addNewTaskHandler(event);
+    addNewTagHandler(event);
   };
 
   return (
