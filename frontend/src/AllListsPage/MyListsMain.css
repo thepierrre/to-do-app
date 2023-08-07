@@ -1,0 +1,23 @@
+.lists-mainpage {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+}
+
+.lists-mainpage > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (max-width: 900px) {
+  .lists-mainpage > ul {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+  }
+}
