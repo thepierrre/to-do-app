@@ -1,18 +1,23 @@
-# To-do app
+<h1 align="center">My To-do Lists - Time Organisation App</h1>
 
-## Contents
+<p align="center">
+<img src="https://cdn-icons-png.flaticon.com/512/2666/2666505.png" alt="Logo" width="25%" height="25%">
+</p>
+
+<p align="center"><a href="https://all-my-todo-lists.netlify.app/">LINK TO THE PAGE</a></p>
+
+<h2 align="center">Contents</h2>
 
 - **Introduction**
 - **Technology used**
 - **Features**
 - **Further plans**
 
-## Introduction
+<h2 align="center">Introduction</h2>
 
-This is a simple to-do app that I've developed to practise my programming skills. The app allows the user to add new tasks, remove and manage them.
-It uses a clean design and intuitive interface for easy and efficient task management.
+This is my very first web application that I developed to practise my programming skills. The app allows the user to add new to-do lists Inside each list, you can add new tasks, remove and manage them. It uses a clean design and intuitive interface for easy and efficient task management.
 
-## Technology used
+<h2 align="center">Technology Used</h2>
 
 This to-do app was build by using modern web technologies and libraries, ensuring a smooth user experience. Here are the key technologies and libraries
 used in its development:
@@ -21,33 +26,33 @@ used in its development:
   were written as separate modules for more efficient future management.
 - **CSS:** Cascading Style Sheets were used to create a modern look and visually appealing user interfaces. Most of the elements were created by
   using custom styles.
-
 - **Material UI**: The Material UI library, thanks to its wide range of pre-built components, was used for styling chosen components
   and providing consistent design.
-
 - **DayPicker**: In order to incorporate a calendar feature for scheduling tasks, the DayPicker React library was implemented,
   enabling the user to pick the day quickly and intuitively.
+- **Express.js**: Since this was my first project where I wanted to implement a backend, I resigned from initially saving the tasks in the local storage and went for storing the tasks permanently inside of a database, which was possible thanks to Express.js
+- **MongoDB**: The database that I chose for the project is MongoDB. I additionally used the Mongoose library to interact with MongoDB on the backend.
 
-## Features
+<h2 align="center">Features</h2>
 
 The app has a number of features that let the user modify the task even after it has already been added.
 
+### Add a new list
+
+The mainpage includes the list view. From there, you can add a new to-do list. You can delete a list any time, or edit its name by clicking on the pencil icon on the left, which opens a modal view. When you click on the list name in the mainpage view, you are redirected to the tasks associated with that list.
+
 ### Add a new task
 
-The top part of the app includes an input field for a new task.
+The top part of the page includes an input field for a new task.
 
-Here, the user can click on a calendar icon to select
-a specific date for the task completion. The date can lie either in the future or in the past (the latter connects to how a task is
-displated in the list, see the following section).
-
-Apart from the task text, a user can also choose a tag in order to group together tasks from the same category. By clicking on the three dots next to the tag input field, the user can choose a tag from a list of already existing tag as well as add a new one to the list. If the user adds a new task with a tag that doesn't exist yet, it is automatically added to the list.
+Here, the user can click on a calendar icon to select a specific date for the task completion. The date can lie either in the future or in the past (the latter connects to how a task is displated in the list, see the following section). Apart from the task text, a user can also choose a tag for easier orientation.
 
 ### Task management
 
 #### Done
 
 Starting from the left, the user can click on a tick icon to mark the task as done. When the task is done, the field with the task text automatically
-becomes striked through to give the user a quick orientation of which of the tasks have been finished.
+becomes striked through to give the user a quick orientation of which of the tasks have been finished, whereas the tick icon on the left changes its colour from grey to blue.
 
 #### Task text
 
@@ -79,25 +84,6 @@ The users can also filter the tasks using four different filters displayed just 
 
 - **Sort by tags:** Just like with sorting by task text, the tasks can be also sorted alphabetically by tags in ascending or descending order.
 
-## Further plans
+<h2 align="center">Project Installation</h2>
 
-### Back-end
-
-For now, the app only uses a front end, with tasks being saved in the local storage (and with several dummy tasks pre-populating the list
-upon the first visit for app demonstration purposes). In order to make the app more realistic, though, I'm planning to add a back-end written
-in Express.js and use a database (preferably MongoDB or PostgreSQL).
-
-### Adding different lists
-
-In the current state, the app gives the user the possibility to add tasks to a single list. However, I would like to give them
-the possibility to add their own lists for better management of tasks and using the app on a bigger scale.
-The individual tasks list will be displayed in a bar on the left that can be dynamically displayed and hidden by clicking on a button next to
-the list's title (currently hardcoded as "My tasks").
-
-### Improving the mobile version
-
-In its current version, the app has a mobile version designed by using CSS media queries, but it doesn't use the mobile first approach yet, which is another important thing that I want to further work on.
-
-### More efficient state management
-
-Right now, the app uses the useState hook for state management and props to pass the state down to child components. However, as the app has started to grow, I have noticed that this is not necessarily the best way to manage its state. For this reason, I would like to implement the useContext hook or Redux to manage the app's state more efficiently.
+To install the project, enter _/frontend_ and _/backend_, and run _npm install_ in each of the directories.
