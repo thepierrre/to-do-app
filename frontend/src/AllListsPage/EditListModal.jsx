@@ -87,22 +87,17 @@ const EditListModal = () => {
     <>
       <Backdrop onClick={editModalCloseHandler} />
       <div className="list-edit-modal">
-        <div className="list-edit-modal--input">
-          <FormControl>
-            <TextField
-              error={editedListIsInvalid ? true : null}
-              placeholder="New name"
-              className="new-list-mainpage__input"
-              onKeyDown={editListNameOnEnterHandler}
-              value={editedEnteredList}
-              variant="standard"
-              helperText={
-                editedListIsInvalid ? "Please enter a list name." : null
-              }
-              onChange={editedListInputChangeHandler}
-            />
-          </FormControl>
-        </div>
+        <TextField
+          className="list-edit-modal--input"
+          error={editedListIsInvalid ? true : null}
+          placeholder="New name"
+          onKeyDown={editListNameOnEnterHandler}
+          value={editedEnteredList}
+          variant="standard"
+          helperText={editedListIsInvalid ? "Please enter a list name." : null}
+          onChange={editedListInputChangeHandler}
+        />
+
         <div className="list-edit-modal--buttons">
           <Button
             variant="outlined"

@@ -10,7 +10,7 @@ const MyListsMain = () => {
   const allLists =
     lists &&
     lists.map((list) => (
-      <li key={list._id}>
+      <li key={list._id} className="list-element-mainpage">
         <SingleListMain
           key={list._id}
           id={list._id}

@@ -26,14 +26,14 @@
   margin: 0;
   text-align: center;
   box-sizing: border-box;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
 .sort {
-  color: #0288d1;
+  color: rgb(241, 241, 241);
 }
 
 .label-done {

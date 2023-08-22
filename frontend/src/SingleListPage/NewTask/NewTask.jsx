@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import TasksContext from "../../context/tasks-context";
 import IconButton from "@mui/material/IconButton";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./NewTask.css";
 import FormControl from "@mui/material/FormControl";
+import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import CalendarMenu from "./CalendarMenu";
@@ -96,11 +96,11 @@ const NewTask = () => {
           <TextField
             error={enteredTaskIsInvalid ? true : null}
             helperText={enteredTaskIsInvalid ? "Please enter a task." : null}
-            variant="standard"
+            variant="outlined"
             onChange={taskInputChangeHandler}
             onKeyDown={addNewTaskOnEnterHandler}
             className="new-task--input"
-            placeholder="New task"
+            placeholder="Enter my new task"
             id="outlined-adornment-task"
             value={enteredTask}
             maxLength="50"
@@ -119,18 +119,18 @@ const NewTask = () => {
         </FormControl>
         <FormControl>
           <TextField
-            variant="standard"
+            variant="outlined"
             onChange={tagInputChangeHandler}
             onKeyDown={addNewTaskOnEnterHandler}
             value={enteredTag}
             inputProps={{ maxLength: 15 }}
             className="new-task-tag--input"
-            placeholder="Tag (optional)"
+            placeholder="Enter a tag (optional)"
           />
         </FormControl>
       </div>
       <IconButton onClick={handleAddButton} className="add-button">
-        <AddCircleIcon fontSize="large" color="info" />
+        <AddIcon fontSize="large" color="info" />
       </IconButton>
     </form>
   );

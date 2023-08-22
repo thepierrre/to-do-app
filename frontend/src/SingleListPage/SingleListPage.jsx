@@ -45,7 +45,7 @@ function SingleListPage() {
           <div className="header__nav">
             <Link to="/" className="home-link">
               <IconButton>
-                <ArrowBackIosNewIcon fontSize="large" />
+                <ArrowBackIosNewIcon fontSize="large" color="light" />
               </IconButton>
             </Link>
             <h1 className="title">{listName || "My Lists"}</h1>

@@ -4,6 +4,8 @@ import "./index.css";
 import ErrorPage from "./shared/errorPage/ErrorPage.jsx";
 import SingleListPage from "./SingleListPage/SingleListPage";
 import App from "./App";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./shared/themes/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListsContextProvider from "./ListsContextProvider";
 import TasksContextProvider from "./TasksContextProvider";
@@ -23,10 +25,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ListsContextProvider>
-      <TasksContextProvider>
-        <RouterProvider router={router} />
-      </TasksContextProvider>
-    </ListsContextProvider>
+    <ThemeProvider theme={theme}>
+      <ListsContextProvider>
+        <TasksContextProvider>
+          <RouterProvider router={router} />
+        </TasksContextProvider>
+      </ListsContextProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

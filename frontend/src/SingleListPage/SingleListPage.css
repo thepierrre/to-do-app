@@ -44,17 +44,8 @@ html {
   font-size: 1.5rem;
 }
 
-.title {
-  font-size: 3rem;
-  font-family: "Roboto", sans-serif;
-}
-
 @media only screen and (max-width: 600px) {
   .header {
     margin: 2rem 0 0 0;
-  }
-
-  .header h1 {
-    color: rgb(32, 32, 32);
   }
 }

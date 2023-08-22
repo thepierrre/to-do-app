@@ -7,11 +7,11 @@
 }
 
 .new-list-mainpage__input {
-  width: 20rem;
+  width: 30rem;
 }
 
 @media only screen and (max-width: 600px) {
   .new-list-mainpage__input {
-    width: 18rem;
+    width: 22rem;
   }
 }
