@@ -1,26 +1,27 @@
 .single-list-mainpage {
-  width: 50rem;
+  width: 40%;
   display: flex;
   flex-direction: row;
-  gap: 3px;
-  height: 3rem;
+  height: 3.5rem;
 }
 
 .single-list-mainpage > div {
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   background-color: white;
 }
 
-.single-list-mainpage__name {
+.bar-element__name {
   display: flex;
   align-items: center;
-  width: 86%;
+  width: 80%;
   padding-left: 1rem;
+  font-size: 1.05rem;
   text-decoration: none;
+  color: rgb(66, 66, 66);
+  border-right: 1px dotted rgb(151, 187, 255);
 }
 
-.single-list-mainpage__name:hover {
-  color: #1976d2;
+.bar-element__name:hover {
+  color: #5367b6;
 }
 
 .done,
@@ -33,7 +34,22 @@
 .bar-element__edit {
   display: flex;
   justify-content: center;
-  width: 7%;
+  width: 10%;
+}
+
+.bar-element__remove {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.bar-element__edit {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-right: 1px dotted rgb(151, 187, 255);
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgb(241, 241, 241) !important;
 }
 
 @media only screen and (max-width: 900px) {
@@ -41,18 +57,14 @@
     width: 100%;
   }
 
-  .single-list-mainpage__name {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    padding-left: 1rem;
-    text-decoration: none;
+  .bar-element__name {
+    width: 74%;
   }
 
   .bar-element__remove,
   .bar-element__edit {
     display: flex;
     justify-content: center;
-    width: 10%;
+    width: 13%;
   }
 }

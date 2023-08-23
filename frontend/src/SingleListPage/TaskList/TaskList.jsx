@@ -107,11 +107,11 @@ const TaskList = () => {
               {sortedBy.feature !== DONE_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === DONE_SORT &&
                 sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="primary" />
+                  <KeyboardArrowUpIcon color="light" />
                 )}
               {sortedBy.feature === DONE_SORT &&
                 sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="primary" />
+                  <KeyboardArrowDownIcon color="light" />
                 )}
             </IconButton>
           </span>
@@ -122,11 +122,11 @@ const TaskList = () => {
               {sortedBy.feature !== TEXT_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === TEXT_SORT &&
                 sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="primary" />
+                  <KeyboardArrowUpIcon color="light" />
                 )}
               {sortedBy.feature === TEXT_SORT &&
                 sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="primary" />
+                  <KeyboardArrowDownIcon color="light" />
                 )}
             </IconButton>
           </span>
@@ -137,11 +137,11 @@ const TaskList = () => {
               {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === DATE_SORT &&
                 sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="primary" />
+                  <KeyboardArrowUpIcon color="light" />
                 )}
               {sortedBy.feature === DATE_SORT &&
                 sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="primary" />
+                  <KeyboardArrowDownIcon color="light" />
                 )}
             </IconButton>
           </span>
@@ -152,17 +152,15 @@ const TaskList = () => {
               {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === TAG_SORT &&
                 sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="primary" />
+                  <KeyboardArrowUpIcon color="light" />
                 )}
               {sortedBy.feature === TAG_SORT &&
                 sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="primary" />
+                  <KeyboardArrowDownIcon color="light" />
                 )}
             </IconButton>
           </span>
-          <span className="label label-remove">
-            <p>Delete</p>
-          </span>
+          <span className="label label-remove"></span>
         </div>
       )}
       {tasksList}

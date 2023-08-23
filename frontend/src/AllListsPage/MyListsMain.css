@@ -7,11 +7,17 @@
 
 .lists-mainpage > ul {
   display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 0.25rem;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.list-element-mainpage {
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 900px) {

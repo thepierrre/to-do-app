@@ -16,24 +16,24 @@
 .labels {
   display: flex;
   flex-direction: row;
-  width: 80%;
-  gap: 3px;
+  width: 60%;
   justify-content: center;
   align-items: space-around center;
+  color: rgb(28, 28, 28);
 }
 
 .label {
   margin: 0;
   text-align: center;
   box-sizing: border-box;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
 .sort {
-  color: #0288d1;
+  color: rgb(241, 241, 241);
 }
 
 .label-done {
@@ -45,15 +45,15 @@
 }
 
 .label-text {
-  width: 30%;
+  width: 50%;
 }
 
 .label-date {
-  width: 10rem;
+  width: 15%;
 }
 
 .label-tag {
-  width: 10rem;
+  width: 15%;
 }
 
 .label-remove {
@@ -65,7 +65,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 3px;
+    gap: 5px;
     margin-bottom: 3rem;
   }
 

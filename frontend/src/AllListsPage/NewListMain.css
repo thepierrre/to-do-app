@@ -7,11 +7,12 @@
 }
 
 .new-list-mainpage__input {
-  width: 20rem;
+  width: 30rem;
+  color: rgb(229, 229, 229);
 }
 
 @media only screen and (max-width: 600px) {
   .new-list-mainpage__input {
-    width: 18rem;
+    width: 23rem;
   }
 }

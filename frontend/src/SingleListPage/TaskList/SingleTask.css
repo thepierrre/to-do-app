@@ -3,18 +3,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: space-around center;
-  width: 80%;
-  gap: 3px;
-}
-
-.task-bar:last-child {
-  border-bottom-left-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
-}
-
-.task-bar:first-child {
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  width: 60%;
+  height: 3.5rem;
 }
 
 .task-bar--item {
@@ -22,13 +12,16 @@
   display: flex;
   align-items: center;
   background-color: white;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+
   font-size: 0.9rem;
 }
 
 .done {
   width: 10%;
   justify-content: center;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-right: 1px dotted rgb(151, 187, 255);
 }
 
 .text {
@@ -36,15 +29,19 @@
   padding-left: 2rem;
   border: none;
   box-sizing: border-box;
+  color: rgb(66, 66, 66);
+  font-size: 1rem;
+  border-right: 1px dotted rgb(151, 187, 255);
+}
+
+.text:focus {
+  color: #576cbc;
+  outline: none;
 }
 
 .text:hover {
-  border: 2px solid #0288d1;
-}
-
-.no-date {
-  font-size: 0.9rem;
-  color: rgb(112, 112, 112);
+  color: #576cbc;
+  cursor: pointer;
 }
 
 .done-task {
@@ -59,11 +56,16 @@
 .date {
   width: 100%;
   justify-content: center;
+  height: 3.5rem;
   border: none;
+  color: rgb(66, 66, 66);
+  font-size: 1rem;
+  border-right: 1px dotted rgb(151, 187, 255);
 }
 
 .date:hover {
-  border: 2px solid #0288d1;
+  color: #576cbc;
+  cursor: pointer;
 }
 
 .tag {
@@ -74,10 +76,19 @@
   border: none;
   padding: 0;
   box-sizing: border-box;
+  font-size: 1rem;
+  border-right: 1px dotted rgb(151, 187, 255);
+  color: rgb(66, 66, 66);
+}
+
+.tag:focus {
+  color: #576cbc;
+  outline: none;
 }
 
 .tag:hover {
-  border: 2px solid #0288d1;
+  color: #576cbc;
+  cursor: pointer;
 }
 
 .empty {
@@ -88,6 +99,8 @@
 .remove {
   justify-content: center;
   width: 10%;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .past-date {
@@ -100,9 +113,8 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 2rem 1.5rem;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-    gap: 0;
     background-color: white;
+    border-radius: 0.75rem;
   }
 
   .task-bar--item {
@@ -131,10 +143,7 @@
   .date {
     font-size: 0.8rem;
     height: 100%;
-  }
-
-  .no-date {
-    font-size: 0.8rem;
+    border-right: none;
   }
 
   .tag {
@@ -142,6 +151,7 @@
     grid-column: 5 / span 3;
     font-size: 0.8rem;
     grid-row: 2 / span 1;
+    border-right: none;
   }
 
   .tag-empty {
@@ -152,8 +162,9 @@
     width: 100%;
     grid-column: 2 / span 6;
     grid-row: 1 / span 1;
-    color: #1976d2;
+    color: #576cbc;
     padding: 0.5rem 0.75rem 0 0.75rem;
+    border-right: none;
   }
 }
 

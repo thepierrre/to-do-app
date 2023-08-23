@@ -3,11 +3,12 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import TasksContext from "../../context/tasks-context";
 import IconButton from "@mui/material/IconButton";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./NewTask.css";
 import FormControl from "@mui/material/FormControl";
+import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
+import { FormHelperText } from "@mui/material";
 import CalendarMenu from "./CalendarMenu";
 
 const NewTask = () => {
@@ -94,18 +95,33 @@ const NewTask = () => {
       <div className="new-task__inputs">
         <FormControl>
           <TextField
-            error={enteredTaskIsInvalid ? true : null}
-            helperText={enteredTaskIsInvalid ? "Please enter a task." : null}
-            variant="standard"
+            autoComplete="off"
+            variant="outlined"
             onChange={taskInputChangeHandler}
             onKeyDown={addNewTaskOnEnterHandler}
             className="new-task--input"
             placeholder="New task"
             id="outlined-adornment-task"
             value={enteredTask}
+            color="light"
+            sx={{
+              input: {
+                "&::placeholder": {
+                  color: "rgb(229, 229, 229)",
+                  opacity: "1",
+                  fontFamily: "Oxygen",
+                },
+                color: "rgb(241, 241, 241)",
+                fontSize: "1.15rem",
+                "@media only screen and (max-width: 600px)": {
+                  fontSize: "1rem",
+                },
+              },
+            }}
             maxLength="50"
             InputProps={{
-              maxLength: 50,
+              sx: { borderRadius: "0.75rem" },
+              maxLength: 40,
               startAdornment: (
                 <InputAdornment position="start">
                   <CalendarMenu
@@ -116,21 +132,48 @@ const NewTask = () => {
               ),
             }}
           />
+          <FormHelperText
+            style={{
+              fontSize: "1rem",
+              textAlign: "center",
+              marginTop: "1.1rem",
+            }}
+          >
+            {enteredTaskIsInvalid ? "Please enter a task name." : null}
+          </FormHelperText>
         </FormControl>
         <FormControl>
           <TextField
-            variant="standard"
+            autoComplete="off"
+            variant="outlined"
             onChange={tagInputChangeHandler}
             onKeyDown={addNewTaskOnEnterHandler}
             value={enteredTag}
-            inputProps={{ maxLength: 15 }}
+            color="light"
+            InputProps={{
+              sx: { borderRadius: "0.75rem" },
+            }}
+            sx={{
+              input: {
+                "&::placeholder": {
+                  color: "rgb(229, 229, 229)",
+                  opacity: "1",
+                  fontFamily: "Oxygen",
+                },
+                color: "rgb(241, 241, 241)",
+                fontSize: "1.15rem",
+                "@media only screen and (max-width: 600px)": {
+                  fontSize: "1rem",
+                },
+              },
+            }}
             className="new-task-tag--input"
             placeholder="Tag (optional)"
           />
         </FormControl>
       </div>
       <IconButton onClick={handleAddButton} className="add-button">
-        <AddCircleIcon fontSize="large" color="info" />
+        <AddIcon fontSize="large" color="light" />
       </IconButton>
     </form>
   );

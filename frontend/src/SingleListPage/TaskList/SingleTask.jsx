@@ -25,8 +25,10 @@ const SingleTask = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const taskTextClassName = `task-bar--item text ${isDone ? "done-task" : ""}`;
-  const taskDateClassName = `task-bar--item date ${date ? "" : "no-date"}`;
+  const taskDateClassName = "task-bar--item date";
   const taskTagClassName = `tag ${tag ? "" : "tag-empty"}`;
+
+  const isNoDate = !date;
 
   const open = Boolean(anchorEl);
 
@@ -42,7 +44,7 @@ const SingleTask = (props) => {
     <div className="task-bar">
       <div className="task-bar--item done">
         <IconButton onClick={() => markTaskAsDoneHandler(task._id)}>
-          <CheckCircleOutlineIcon color="primary" />
+          <CheckCircleOutlineIcon color={isDone ? "primary" : "grey"} />
         </IconButton>
       </div>
       <input
@@ -58,7 +60,7 @@ const SingleTask = (props) => {
           {date && new Date(date) < new Date() && (
             <PriorityHighIcon fontSize="small" color="error" />
           )}
-          <span>
+          <span style={{ color: isNoDate ? "grey" : "inherit" }}>
             {date
               ? new Date(date).toLocaleDateString("en-UK", {
                   day: "numeric",
