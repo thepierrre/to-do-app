@@ -42,14 +42,12 @@ function SingleListPage() {
     <>
       <div className="app">
         <header className="header">
-          <div className="header__nav">
-            <Link to="/" className="home-link">
-              <IconButton>
-                <ArrowBackIosNewIcon fontSize="large" color="light" />
-              </IconButton>
-            </Link>
-            <h1 className="title">{listName || "My Lists"}</h1>
-          </div>
+          <Link to="/" className="home-link">
+            <IconButton>
+              <ArrowBackIosNewIcon fontSize="large" color="light" />
+            </IconButton>
+          </Link>
+          <h1 className="title">{listName || "My Lists"}</h1>
         </header>
         <NewTask />
         {calendarIsShown && <Calendar />}

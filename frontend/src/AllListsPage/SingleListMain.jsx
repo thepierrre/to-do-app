@@ -36,7 +36,7 @@ const SingleListMain = (props) => {
           <EditOutlinedIcon />
         </IconButton>
       </div>
-      <div className="single-list-mainpage__name bar-element">
+      <div className="bar-element__name">
         <Link
           to={`/list/${id}`}
           style={{ color: "inherit", textDecoration: "inherit" }}

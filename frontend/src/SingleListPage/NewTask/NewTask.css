@@ -10,6 +10,11 @@
   gap: 1rem;
 }
 
+.add-button {
+  top: 10%;
+  height: 3.25rem;
+}
+
 .new-task--input {
   width: 25rem;
   margin-right: 1rem;
@@ -28,12 +33,12 @@
   }
 
   .new-task--input {
-    width: 12rem;
+    width: 13rem;
     text-align: center;
   }
 
   .new-task-tag--input {
-    width: 8rem;
+    width: 9rem;
   }
 }
 

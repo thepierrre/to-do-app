@@ -71,45 +71,50 @@ const NewListMain = () => {
     <div className="new-list-mainpage">
       <FormControl>
         <TextField
+          autoComplete="off"
           className="new-list-mainpage__input"
-          // error={enteredListIsInvalid ? true : null}
-          placeholder="Enter my new list"
+          placeholder="New list's name"
           onKeyDown={addNewListOnEnterHandler}
           value={enteredList}
           variant="outlined"
-          // helperText={enteredListIsInvalid ? "Please enter a list name." : null}
           onChange={listInputChangeHandler}
           color="light"
           sx={{
             input: {
               "&::placeholder": {
-                color: "#283257",
+                color: "rgb(229, 229, 229)",
+                opacity: "1",
                 fontFamily: "Oxygen",
+                "@media only screen and (max-width: 600px)": {
+                  fontSize: "1rem",
+                },
               },
-              // color: "rgb(241, 241, 241)",
               color: "rgb(241, 241, 241)",
               fontSize: "1.15rem",
             },
           }}
           InputProps={{
-            sx: { borderRadius: "0.75rem" },
+            sx: { borderRadius: "0.75rem", borderColor: "rgb(241, 241, 241)" },
             maxLength: 50,
             endAdornment: (
               <InputAdornment position="start">
-                <IconButton onClick={addNewListHandler} color="primary">
+                <IconButton onClick={addNewListHandler} color="light">
                   <AddIcon />
                 </IconButton>
               </InputAdornment>
             ),
           }}
         />
-        <FormHelperText style={{ fontSize: "0.9rem", textAlign: "center" }}>
+        <FormHelperText
+          style={{
+            fontSize: "1rem",
+            textAlign: "center",
+            marginTop: "0.5rem",
+          }}
+        >
           {enteredListIsInvalid ? "Please enter a list name." : null}
         </FormHelperText>
       </FormControl>
-      {/* <IconButton onClick={addNewListHandler}>
-        <AddCircleIcon color="info" fontSize="large" className="add-button" />
-      </IconButton> */}
     </div>
   );
 };

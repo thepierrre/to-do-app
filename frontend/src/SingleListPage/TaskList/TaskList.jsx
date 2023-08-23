@@ -160,9 +160,7 @@ const TaskList = () => {
                 )}
             </IconButton>
           </span>
-          <span className="label label-remove">
-            <p>Delete</p>
-          </span>
+          <span className="label label-remove"></span>
         </div>
       )}
       {tasksList}

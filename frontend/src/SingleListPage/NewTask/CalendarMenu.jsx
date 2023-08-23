@@ -28,9 +28,9 @@ const CalendarMenu = (props) => {
         onClick={handleClick}
       >
         {!selectedDay ? (
-          <EditCalendarIcon />
+          <EditCalendarIcon color="light" />
         ) : (
-          <EventAvailableIcon color="info" />
+          <EventAvailableIcon color="light" />
         )}
       </IconButton>
       <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose}>

@@ -1,5 +1,4 @@
 .single-list-mainpage {
-  /* width: 40rem; */
   width: 40%;
   display: flex;
   flex-direction: row;
@@ -10,19 +9,18 @@
   background-color: white;
 }
 
-.single-list-mainpage__name {
+.bar-element__name {
   display: flex;
   align-items: center;
   width: 80%;
   padding-left: 1rem;
-  font-family: "Oxygen", sans-serif;
   font-size: 1.05rem;
   text-decoration: none;
-  color: rgb(32, 32, 32);
+  color: rgb(66, 66, 66);
   border-right: 1px dotted rgb(151, 187, 255);
 }
 
-.single-list-mainpage__name:hover {
+.bar-element__name:hover {
   color: #5367b6;
 }
 
@@ -50,23 +48,23 @@
   border-right: 1px dotted rgb(151, 187, 255);
 }
 
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgb(241, 241, 241) !important;
+}
+
 @media only screen and (max-width: 900px) {
   .single-list-mainpage {
     width: 100%;
   }
 
-  .single-list-mainpage__name {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    padding-left: 1rem;
-    text-decoration: none;
+  .bar-element__name {
+    width: 74%;
   }
 
   .bar-element__remove,
   .bar-element__edit {
     display: flex;
     justify-content: center;
-    width: 10%;
+    width: 13%;
   }
 }

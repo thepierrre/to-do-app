@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: space-around center;
-  width: 55%;
+  width: 60%;
   height: 3.5rem;
 }
 
@@ -25,12 +25,11 @@
 }
 
 .text {
-  width: 0%;
+  width: 50%;
   padding-left: 2rem;
   border: none;
   box-sizing: border-box;
-  color: rgb(32, 32, 32);
-  font-family: "Oxygen";
+  color: rgb(66, 66, 66);
   font-size: 1rem;
   border-right: 1px dotted rgb(151, 187, 255);
 }
@@ -59,8 +58,7 @@
   justify-content: center;
   height: 3.5rem;
   border: none;
-  color: rgb(32, 32, 32);
-  font-family: "Oxygen";
+  color: rgb(66, 66, 66);
   font-size: 1rem;
   border-right: 1px dotted rgb(151, 187, 255);
 }
@@ -78,10 +76,9 @@
   border: none;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Oxygen";
   font-size: 1rem;
   border-right: 1px dotted rgb(151, 187, 255);
-  color: rgb(32, 32, 32);
+  color: rgb(66, 66, 66);
 }
 
 .tag:focus {
@@ -116,8 +113,8 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 2rem 1.5rem;
-    gap: 0;
     background-color: white;
+    border-radius: 0.75rem;
   }
 
   .task-bar--item {
@@ -146,6 +143,7 @@
   .date {
     font-size: 0.8rem;
     height: 100%;
+    border-right: none;
   }
 
   .tag {
@@ -153,6 +151,7 @@
     grid-column: 5 / span 3;
     font-size: 0.8rem;
     grid-row: 2 / span 1;
+    border-right: none;
   }
 
   .tag-empty {
@@ -163,8 +162,9 @@
     width: 100%;
     grid-column: 2 / span 6;
     grid-row: 1 / span 1;
-    color: #1976d2;
+    color: #576cbc;
     padding: 0.5rem 0.75rem 0 0.75rem;
+    border-right: none;
   }
 }
 
