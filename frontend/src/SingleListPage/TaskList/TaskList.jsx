@@ -86,7 +86,9 @@ const TaskList = () => {
       )}
       {sortedTasks.length !== 0 && (
         <>
-          <TasksFilter sortedBy={sortedBy} setSortedBy={setSortedBy} />
+          <div className="tasks-filter">
+            <TasksFilter sortedBy={sortedBy} setSortedBy={setSortedBy} />
+          </div>
           <div className="labels">
             <span className="label label-done">
               <IconButton className="filter-button" onClick={sortByDoneHandler}>
