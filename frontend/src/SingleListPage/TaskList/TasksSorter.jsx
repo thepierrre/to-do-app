@@ -34,9 +34,9 @@ const TasksSorter = (props) => {
   }
   if (sortedBy.feature === DATE_SORT) {
     if (sortedBy.direction === ASC_SORT) {
-      sorterText = "Date: newest first";
-    } else {
       sorterText = "Date: oldest first";
+    } else {
+      sorterText = "Date: newest first";
     }
   }
   if (sortedBy.feature === TEXT_SORT) {
