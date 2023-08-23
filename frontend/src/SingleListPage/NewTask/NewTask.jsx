@@ -121,7 +121,7 @@ const NewTask = () => {
             maxLength="50"
             InputProps={{
               sx: { borderRadius: "0.75rem" },
-              maxLength: 40,
+              maxLength: 30,
               startAdornment: (
                 <InputAdornment position="start">
                   <CalendarMenu
@@ -152,6 +152,7 @@ const NewTask = () => {
             color="light"
             InputProps={{
               sx: { borderRadius: "0.75rem" },
+              maxLength: 15,
             }}
             sx={{
               input: {

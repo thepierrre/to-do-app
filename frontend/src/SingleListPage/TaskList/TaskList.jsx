@@ -102,7 +102,7 @@ const TaskList = () => {
       {sortedTasks.length !== 0 && (
         <div className="labels">
           <span className="label label-done">
-            <p className={labelDoneInternalClass}>Done</p>
+            {/* <p className={labelDoneInternalClass}>Done</p> */}
             <IconButton className="filter-button" onClick={sortByDoneHandler}>
               {sortedBy.feature !== DONE_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === DONE_SORT &&
@@ -117,7 +117,7 @@ const TaskList = () => {
           </span>
 
           <span className="label label-text">
-            <p className={labelTextInternalClass}>Task</p>
+            {/* <p className={labelTextInternalClass}>Task</p> */}
             <IconButton className="filter-button" onClick={sortByTaskHandler}>
               {sortedBy.feature !== TEXT_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === TEXT_SORT &&
@@ -132,7 +132,7 @@ const TaskList = () => {
           </span>
 
           <span className="label label-date">
-            <p className={labelDateInternalClass}>Due date</p>
+            {/* <p className={labelDateInternalClass}>Due date</p> */}
             <IconButton className="filter-button" onClick={sortByDateHandler}>
               {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === DATE_SORT &&
@@ -147,7 +147,7 @@ const TaskList = () => {
           </span>
 
           <span className="label label-tag">
-            <p className={labelTagInternalClass}>Tag</p>
+            {/* <p className={labelTagInternalClass}>Tag</p> */}
             <IconButton className="filter-button" onClick={sortByTagHandler}>
               {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
               {sortedBy.feature === TAG_SORT &&

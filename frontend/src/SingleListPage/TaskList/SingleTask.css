@@ -168,9 +168,9 @@
   }
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1000px) {
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
   .task-bar {
-    width: 95%;
+    width: 75%;
   }
 
   .text {
@@ -199,12 +199,31 @@
 }
 
 @media only screen and (min-width: 601px) {
+  .task-bar {
+    width: 95%;
+  }
+
   .task-bar--item {
     min-height: 3rem;
   }
 }
 
-@media only screen and (min-width: 1051px) {
+@media only screen and (min-width: 950px) {
+  .task-bar {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .task-bar {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .task-bar {
+    width: 65%;
+  }
   .text {
     width: 38%;
   }
@@ -212,5 +231,11 @@
   .done,
   .remove {
     width: 7%;
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+  .task-bar {
+    width: 60%;
   }
 }

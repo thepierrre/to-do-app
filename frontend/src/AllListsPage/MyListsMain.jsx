@@ -23,7 +23,7 @@ const MyListsMain = () => {
   return (
     <div className="lists-mainpage">
       {lists && lists.length === 0 && (
-        <p className="empty">Your lists will appear here.</p>
+        <p className="lists-empty">Your lists will appear here.</p>
       )}
       {lists && lists.length !== 0 && <ul>{allLists}</ul>}
     </div>

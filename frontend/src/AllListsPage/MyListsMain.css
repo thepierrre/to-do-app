@@ -20,10 +20,31 @@
   justify-content: center;
 }
 
-@media only screen and (max-width: 900px) {
+.lists-empty {
+  color: rgb(241, 241, 241);
+  font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 600px) {
   .lists-mainpage > ul {
     display: flex;
     flex-direction: column;
     width: 95%;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .lists-mainpage > ul {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1000px) {
+  .lists-mainpage > ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 }
