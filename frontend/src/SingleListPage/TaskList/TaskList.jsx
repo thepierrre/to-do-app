@@ -10,6 +10,7 @@ import {
   DEFAULT_SORT,
 } from "../../utils/sortingFunctions";
 import SingleTask from "./SingleTask";
+import TasksFilter from "./TasksFilter";
 import "./TaskList.css";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -78,90 +79,73 @@ const TaskList = () => {
     <SingleTask key={task._id} task={task} />
   ));
 
-  const labelDoneInternalClass = `${
-    sortedBy.feature === DONE_SORT ? "sort" : ""
-  }`;
-
-  const labelTextInternalClass = `${
-    sortedBy.feature === TEXT_SORT ? "sort" : ""
-  }`;
-
-  const labelDateInternalClass = `${
-    sortedBy.feature === DATE_SORT ? "sort" : ""
-  }`;
-
-  const labelTagInternalClass = `${
-    sortedBy.feature === TAG_SORT ? "sort" : ""
-  }`;
-
   return (
     <div className="tasks-list">
       {sortedTasks.length === 0 && (
         <p className="tasks-list-empty">Your tasks will appear here.</p>
       )}
       {sortedTasks.length !== 0 && (
-        <div className="labels">
-          <span className="label label-done">
-            {/* <p className={labelDoneInternalClass}>Done</p> */}
-            <IconButton className="filter-button" onClick={sortByDoneHandler}>
-              {sortedBy.feature !== DONE_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === DONE_SORT &&
-                sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="light" />
-                )}
-              {sortedBy.feature === DONE_SORT &&
-                sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="light" />
-                )}
-            </IconButton>
-          </span>
+        <>
+          <TasksFilter sortedBy={sortedBy} setSortedBy={setSortedBy} />
+          <div className="labels">
+            <span className="label label-done">
+              <IconButton className="filter-button" onClick={sortByDoneHandler}>
+                {sortedBy.feature !== DONE_SORT && <UnfoldMoreIcon />}
+                {sortedBy.feature === DONE_SORT &&
+                  sortedBy.direction === ASC_SORT && (
+                    <KeyboardArrowUpIcon color="light" />
+                  )}
+                {sortedBy.feature === DONE_SORT &&
+                  sortedBy.direction === DESC_SORT && (
+                    <KeyboardArrowDownIcon color="light" />
+                  )}
+              </IconButton>
+            </span>
 
-          <span className="label label-text">
-            {/* <p className={labelTextInternalClass}>Task</p> */}
-            <IconButton className="filter-button" onClick={sortByTaskHandler}>
-              {sortedBy.feature !== TEXT_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === TEXT_SORT &&
-                sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="light" />
-                )}
-              {sortedBy.feature === TEXT_SORT &&
-                sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="light" />
-                )}
-            </IconButton>
-          </span>
+            <span className="label label-text">
+              <IconButton className="filter-button" onClick={sortByTaskHandler}>
+                {sortedBy.feature !== TEXT_SORT && <UnfoldMoreIcon />}
+                {sortedBy.feature === TEXT_SORT &&
+                  sortedBy.direction === ASC_SORT && (
+                    <KeyboardArrowUpIcon color="light" />
+                  )}
+                {sortedBy.feature === TEXT_SORT &&
+                  sortedBy.direction === DESC_SORT && (
+                    <KeyboardArrowDownIcon color="light" />
+                  )}
+              </IconButton>
+            </span>
 
-          <span className="label label-date">
-            {/* <p className={labelDateInternalClass}>Due date</p> */}
-            <IconButton className="filter-button" onClick={sortByDateHandler}>
-              {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === DATE_SORT &&
-                sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="light" />
-                )}
-              {sortedBy.feature === DATE_SORT &&
-                sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="light" />
-                )}
-            </IconButton>
-          </span>
+            <span className="label label-date">
+              <IconButton className="filter-button" onClick={sortByDateHandler}>
+                {sortedBy.feature !== DATE_SORT && <UnfoldMoreIcon />}
+                {sortedBy.feature === DATE_SORT &&
+                  sortedBy.direction === ASC_SORT && (
+                    <KeyboardArrowUpIcon color="light" />
+                  )}
+                {sortedBy.feature === DATE_SORT &&
+                  sortedBy.direction === DESC_SORT && (
+                    <KeyboardArrowDownIcon color="light" />
+                  )}
+              </IconButton>
+            </span>
 
-          <span className="label label-tag">
-            {/* <p className={labelTagInternalClass}>Tag</p> */}
-            <IconButton className="filter-button" onClick={sortByTagHandler}>
-              {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
-              {sortedBy.feature === TAG_SORT &&
-                sortedBy.direction === ASC_SORT && (
-                  <KeyboardArrowUpIcon color="light" />
-                )}
-              {sortedBy.feature === TAG_SORT &&
-                sortedBy.direction === DESC_SORT && (
-                  <KeyboardArrowDownIcon color="light" />
-                )}
-            </IconButton>
-          </span>
-          <span className="label label-remove"></span>
-        </div>
+            <span className="label label-tag">
+              <IconButton className="filter-button" onClick={sortByTagHandler}>
+                {sortedBy.feature !== TAG_SORT && <UnfoldMoreIcon />}
+                {sortedBy.feature === TAG_SORT &&
+                  sortedBy.direction === ASC_SORT && (
+                    <KeyboardArrowUpIcon color="light" />
+                  )}
+                {sortedBy.feature === TAG_SORT &&
+                  sortedBy.direction === DESC_SORT && (
+                    <KeyboardArrowDownIcon color="light" />
+                  )}
+              </IconButton>
+            </span>
+            <span className="label label-remove"></span>
+          </div>
+        </>
       )}
       {tasksList}
     </div>

@@ -136,7 +136,7 @@ const NewTask = () => {
             style={{
               fontSize: "1rem",
               textAlign: "center",
-              marginTop: "1.1rem",
+              margin: "1.1rem 0 0 0",
             }}
           >
             {enteredTaskIsInvalid ? "Please enter a task name." : null}

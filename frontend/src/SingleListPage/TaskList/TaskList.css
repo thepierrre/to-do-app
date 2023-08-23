@@ -97,27 +97,11 @@
   }
 }
 
-/* @media only screen and (min-width: 601px) and (max-width: 1000px) {
-  .label-text {
-    width: 14.5rem;
+@media only screen and (min-width: 1001px) {
+  .filter-mobile {
+    display: none;
   }
-
-  .label-tag {
-    width: 8rem;
-  }
-
-  .label-done {
-    width: 3rem;
-  }
-
-  .label-remove {
-    width: 3rem;
-  }
-
-  .label-date {
-    width: 8rem;
-  }
-} */
+}
 
 @media only screen and (min-width: 1400px) {
   .label-text {
