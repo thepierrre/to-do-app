@@ -11,7 +11,7 @@
 - **Introduction**
 - **Technology used**
 - **Features**
-- **Further plans**
+- **Project Installation**
 
 <h2 align="center">Introduction</h2>
 
