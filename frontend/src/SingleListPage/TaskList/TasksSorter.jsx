@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const TasksFilter = (props) => {
+const TasksSorter = (props) => {
   const { sortedBy, setSortedBy } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -23,6 +23,36 @@ const TasksFilter = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  let sorterText;
+  if (sortedBy.feature === DONE_SORT) {
+    if (sortedBy.direction === ASC_SORT) {
+      sorterText = "Status: to-do first";
+    } else {
+      sorterText = "Status: done first";
+    }
+  }
+  if (sortedBy.feature === DATE_SORT) {
+    if (sortedBy.direction === ASC_SORT) {
+      sorterText = "Date: newest first";
+    } else {
+      sorterText = "Date: oldest first";
+    }
+  }
+  if (sortedBy.feature === TEXT_SORT) {
+    if (sortedBy.direction === ASC_SORT) {
+      sorterText = "Task: A-Z";
+    } else {
+      sorterText = "Task: Z-A";
+    }
+  }
+  if (sortedBy.feature === TAG_SORT) {
+    if (sortedBy.direction === ASC_SORT) {
+      sorterText = "Tag: A-Z";
+    } else {
+      sorterText = "Tag: Z-A";
+    }
+  }
 
   const toDoFirstHandler = () => {
     setSortedBy({ feature: DONE_SORT, direction: ASC_SORT });
@@ -70,7 +100,7 @@ const TasksFilter = (props) => {
         onClick={handleClick}
         color="light"
       >
-        Filter TASKS
+        {sorterText ? sorterText : "SORT TASKS"}
       </Button>
       {sortedBy !== DEFAULT_SORT && (
         <Button
@@ -100,8 +130,8 @@ const TasksFilter = (props) => {
         <MenuItem onClick={doneFirstHandler}>Status: done first</MenuItem>
         <MenuItem onClick={tasksAscHandler}>Task: A-Z</MenuItem>
         <MenuItem onClick={tasksDescHandler}>Task: Z-A</MenuItem>
-        <MenuItem onClick={dateNewFirstHandler}>Date: new first</MenuItem>
-        <MenuItem onClick={dateOldFirstHandler}>Date: old first</MenuItem>
+        <MenuItem onClick={dateNewFirstHandler}>Date: newest first</MenuItem>
+        <MenuItem onClick={dateOldFirstHandler}>Date: oldest first</MenuItem>
         <MenuItem onClick={tagsAscHandler}>Tag: A-Z</MenuItem>
         <MenuItem onClick={tagsDescHandler}>Tag: Z-A</MenuItem>
       </Menu>
@@ -109,4 +139,4 @@ const TasksFilter = (props) => {
   );
 };
 
-export default TasksFilter;
+export default TasksSorter;

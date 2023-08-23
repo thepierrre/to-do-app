@@ -10,7 +10,7 @@ import {
   DEFAULT_SORT,
 } from "../../utils/sortingFunctions";
 import SingleTask from "./SingleTask";
-import TasksFilter from "./TasksFilter";
+import TasksSorter from "./TasksSorter";
 import "./TaskList.css";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -87,7 +87,7 @@ const TaskList = () => {
       {sortedTasks.length !== 0 && (
         <>
           <div className="tasks-filter">
-            <TasksFilter sortedBy={sortedBy} setSortedBy={setSortedBy} />
+            <TasksSorter sortedBy={sortedBy} setSortedBy={setSortedBy} />
           </div>
           <div className="labels">
             <span className="label label-done">
