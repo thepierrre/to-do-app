@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import ErrorPage from "./shared/errorPage/ErrorPage.jsx";
 import SingleListPage from "./SingleListPage/SingleListPage";
+import NotFound from "./shared/error/NotFound";
 import App from "./App";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/themes/theme";
@@ -14,12 +14,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFound />,
   },
   {
     path: "/list/:listId",
     element: <SingleListPage />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFound />,
   },
 ]);
 
